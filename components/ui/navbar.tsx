@@ -2,7 +2,6 @@
 
 import ThemeToggle from "@/components/ui/theme-toggle"
 import { useEffect, useState } from "react"
-import { AuroraText } from "./aurora-text"
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -57,12 +56,7 @@ export default function Navbar() {
   }, [])
 
   // Define aurora color sets for light/dark modes
-  const auroraColors =
-  isDark === null
-    ? ["#A78BFA", "#67E8F9"] // neutral: soft violet to light cyan
-    : isDark
-    ? ["#8B5CF6", "#06B6D4", "#3B82F6"] // dark mode: soft purple, teal, blue
-    : ["#F472B6", "#C084FC", "#FBCFE8"]; // light mode: soft pinks and violets
+  
 
   return (
   <header className={`nav-slide-in w-full bg-muted/20 dark:bg-muted/90 backdrop-blur sticky top-0 z-50 border-b border-border transform transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}>
@@ -70,9 +64,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <a href="#overview" className="flex items-center gap-3">
             {/* <img src="/assets/logo-small.svg" alt="logo" className="w-8 h-8" /> */}
-            <AuroraText className="font-bold text-[20px]" colors={auroraColors}>
-              Kyle Reginaldo
-            </AuroraText>
+            <p className="text-2xl font-bold">KR;</p>
 
           </a>
 

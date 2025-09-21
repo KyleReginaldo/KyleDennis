@@ -26,7 +26,9 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}> 
         <MantineProvider>
           <Navbar />
+
           <main>
+            
             <Suspense>{children}</Suspense>
           </main>
         </MantineProvider>

@@ -2,10 +2,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { DotPattern } from "@/components/ui/dot-pattern"
+import { GridPattern } from "@/components/ui/grid-pattern"
 import Section from "@/components/ui/section"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import Typing from "@/components/ui/typing"
+import { cn } from "@/lib/utils"
 import {
   Calendar,
   Code,
@@ -86,7 +89,11 @@ export default function Home() {
 
   <Section id="overview" className="relative md:min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10 overflow-hidden">
     <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
-  <div className="container mx-auto px-4 py-12 md:py-20">
+    <DotPattern
+      className="absolute w-min-screen inset-0 z-0 pointer-events-none [mask-image:radial-gradient(450px_circle_at_center,white,transparent)]"
+      // width={800}
+    />
+  <div className="container mx-auto px-4 py-12 md:py-20 z-10">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 w-full md:w-2/3">
               <div className="flex-shrink-0 hidden md:block">
@@ -153,7 +160,7 @@ export default function Home() {
           </div>
         </div>
   </Section>
-
+  {/* moved GridPattern into the stacks section per request; removed standalone block */}
   <Section id="stacks" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -162,6 +169,8 @@ export default function Home() {
               Comprehensive technology stack from mobile development to cloud infrastructure
             </p>
           </div>
+
+          {/* GridPattern moved to testimonials section as a background */}
 
           <Tabs defaultValue="all" className="w-full">
             <TabsContent value="all">
@@ -188,8 +197,29 @@ export default function Home() {
           </Tabs>
         </div>
   </Section>
-
-  <Section id="testimonials" className="py-20">
+  <Section id="testimonials" className="py-20 relative">
+          <div className="absolute inset-0 pointer-events-none -z-10">
+            <GridPattern
+              squares={[
+                [4, 4],
+                [5, 1],
+                [8, 2],
+                [5, 3],
+                [5, 5],
+                [10, 10],
+                [12, 15],
+                [15, 10],
+                [10, 15],
+                [15, 10],
+                [10, 15],
+                [15, 10],
+              ]}
+              className={cn(
+                "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+                "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
+              )}
+            />
+          </div>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Testimonials</h2>
