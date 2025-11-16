@@ -22,6 +22,8 @@ import Head from "next/head"
 const frameworks = [
   { name: "Flutter", imageLink: "/assets/stacks/flutter.png" },
   { name: "NestJS", imageLink: "/assets/stacks/nest.png" },
+  { name: "Next.js", imageLink: "/assets/stacks/nextjs.png" },
+  { name: "ReactJS", imageLink: "/assets/stacks/reactjs.png" },
 ]
 
 const services = [
@@ -39,6 +41,8 @@ const tools = [
   { name: "Postman", imageLink: "/assets/stacks/postman.png" },
   { name: "Figma", imageLink: "/assets/stacks/figma.png" },
   { name: "VS Code", imageLink: "/assets/stacks/vscode.png" },
+    { name: "Vite", imageLink: "/assets/stacks/vite.js.png" },
+
 ]
 
 const languages = [
@@ -55,6 +59,14 @@ const projects = [
     images: ["/assets/mockup/mobilemedicallab.png"],
     tags: ["Flutter", "NestJs" , "Medical"],
     playstore: "https://play.google.com/store/apps/details?id=com.labstogomml.app",
+  },
+  {
+    title: "Mobile Medical Lab API",
+    description: "Robust NestJS backend API powering the Mobile Medical Lab application with comprehensive medical services",
+    images: ["/assets/projects/app-preview.png"],
+    tags: ["NestJs", "API", "Backend", "Medical"],
+    playstore: "https://api.mobilemedicallab.com/api",
+    isAPI: true,
   },
   {
     title: "Celebreak",
@@ -123,7 +135,7 @@ export default function Home() {
                     Kyle Reginaldo
                   </h1>
                   <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-                    Flutter & NestJS Developer crafting exceptional mobile experiences and robust backend solutions
+                   Let&apos;s turn your ideas into reality and build impactful mobile and backend solutions together.
                   </p>
                 </div>
 
@@ -195,6 +207,77 @@ export default function Home() {
 
             
           </Tabs>
+        </div>
+  </Section>
+   <Section id="showcase" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              A showcase of mobile and web applications I've built since 2022
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <Card
+                key={index}
+                className="group overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="relative overflow-hidden">
+                  <div className="flex gap-2 p-4 bg-muted/50">
+                    {project.images.map((image, imgIndex) => (
+                      <img
+                        key={imgIndex}
+                        src={image || "/placeholder.svg"}
+                        alt={`${project.title} screenshot ${imgIndex + 1}`}
+                        className="flex-1 rounded-lg shadow-md group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ))}
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                 
+                </div>
+                <CardHeader>
+                  <CardTitle className="group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </CardTitle>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="w-fit opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
+                  >
+                    <a href={project.playstore} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                      {project.isAPI ? (
+                        <>
+                          <Code className="w-4 h-4 mr-2" />
+                          View API
+                        </>
+                      ) : (
+                        <>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-google-play" viewBox="0 0 16 16">
+                            <path d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055zM1 13.396V2.603L6.846 8zM1.03 1.27l6.553 6.05 3.044-2.81L3.333.215C2.39-.341 1.231.24 1.03 1.27"/>
+                          </svg>
+                          Playstore
+                        </>
+                      )}
+                    </a>
+                  </Button>
+                  <CardDescription className="leading-relaxed">{project.description}</CardDescription>
+                </CardHeader>
+                 
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIndex) => (
+                      <Badge key={tagIndex} variant="secondary" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
   </Section>
   <Section id="testimonials" className="py-20 relative">
@@ -351,6 +434,10 @@ export default function Home() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="outline">Flutter</Badge>
+                    <Badge variant="outline">Dart</Badge>
+                    <Badge variant="outline">Supabase</Badge>
+                    <Badge variant="outline">OneSignal</Badge>
+                    <Badge variant="outline">Typescript</Badge>
                     <Badge variant="outline">NestJs</Badge>
                     <Badge variant="outline">Full-time</Badge>
                   </div>
@@ -465,66 +552,7 @@ export default function Home() {
         </div>
   </Section>
 
-  <Section id="showcase" className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A showcase of mobile and web applications I've built since 2022
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <Card
-                key={index}
-                className="group overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-              >
-                <div className="relative overflow-hidden">
-                  <div className="flex gap-2 p-4 bg-muted/50">
-                    {project.images.map((image, imgIndex) => (
-                      <img
-                        key={imgIndex}
-                        src={image || "/placeholder.svg"}
-                        alt={`${project.title} screenshot ${imgIndex + 1}`}
-                        className="flex-1 rounded-lg shadow-md group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ))}
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <Button
-                    asChild
-                    size="sm"
-                    className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
-                  >
-                    <a href={project.playstore} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-google-play" viewBox="0 0 16 16">
-                        <path d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055zM1 13.396V2.603L6.846 8zM1.03 1.27l6.553 6.05 3.044-2.81L3.333.215C2.39-.341 1.231.24 1.03 1.27"/>
-                      </svg>
-                      Playstore
-                    </a>
-                  </Button>
-                </div>
-                <CardHeader>
-                  <CardTitle className="group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </CardTitle>
-                  <CardDescription className="leading-relaxed">{project.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, tagIndex) => (
-                      <Badge key={tagIndex} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-  </Section>
+ 
 
       <footer className="bg-muted/50 py-12 border-t">
         <div className="container mx-auto px-4">
