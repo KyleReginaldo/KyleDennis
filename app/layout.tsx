@@ -1,4 +1,4 @@
-import Navbar from "@/components/ui/navbar"
+import { DockNav } from "@/components/navigation/dock-nav"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata } from "next"
 import type React from "react"
@@ -25,12 +25,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans antialiased`}> 
         <MantineProvider>
-          <Navbar />
-
-          <main>
-            
-            <Suspense>{children}</Suspense>
-          </main>
+          <div className="relative flex min-h-screen flex-col">
+            <main className="flex-1">
+              <Suspense>{children}</Suspense>
+            </main>
+          </div>
+          <div className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-6">
+            <div className="pointer-events-auto">
+              <DockNav />
+            </div>
+          </div>
         </MantineProvider>
       </body>
     </html>

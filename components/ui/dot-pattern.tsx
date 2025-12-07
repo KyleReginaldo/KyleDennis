@@ -1,22 +1,39 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
-/**
- *  DotPattern Component Props
- *
- * @param {number} [width=16] - The horizontal spacing between dots
- * @param {number} [height=16] - The vertical spacing between dots
- * @param {number} [x=0] - The x-offset of the entire pattern
- * @param {number} [y=0] - The y-offset of the entire pattern
- * @param {number} [cx=1] - The x-offset of individual dots
- * @param {number} [cy=1] - The y-offset of individual dots
- * @param {number} [cr=1] - The radius of each dot
- * @param {string} [className] - Additional CSS classes to apply to the SVG container
- * @param {boolean} [glow=false] - Whether dots should have a glowing animation effect
- */
+let dotPatternStylesInjected = false;
+
+const ensureDotPatternStyles = () => {
+  if (typeof document === "undefined" || dotPatternStylesInjected) {
+    return;
+  }
+
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes dotPatternGlow {
+      0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  dotPatternStylesInjected = true;
+};
+
 interface DotPatternProps extends React.SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
@@ -27,38 +44,7 @@ interface DotPatternProps extends React.SVGProps<SVGSVGElement> {
   cr?: number;
   className?: string;
   glow?: boolean;
-  [key: string]: unknown;
 }
-
-/**
- * DotPattern Component
- *
- * A React component that creates an animated or static dot pattern background using SVG.
- * The pattern automatically adjusts to fill its container and can optionally display glowing dots.
- *
- * @component
- *
- * @see DotPatternProps for the props interface.
- *
- * @example
- * // Basic usage
- * <DotPattern />
- *
- * // With glowing effect and custom spacing
- * <DotPattern
- *   width={20}
- *   height={20}
- *   glow={true}
- *   className="opacity-50"
- * />
- *
- * @notes
- * - The component is client-side only ("use client")
- * - Automatically responds to container size changes
- * - When glow is enabled, dots will animate with random delays and durations
- * - Uses Motion for animations
- * - Dots color can be controlled via the text color utility classes
- */
 
 export function DotPattern({
   width = 16,
@@ -70,6 +56,7 @@ export function DotPattern({
   cr = 1,
   className,
   glow = false,
+  style: incomingStyle,
   ...props
 }: DotPatternProps) {
   const id = useId();
@@ -79,8 +66,9 @@ export function DotPattern({
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
-        const { width, height } = containerRef.current.getBoundingClientRect();
-        setDimensions({ width, height });
+        const { width: currentWidth, height: currentHeight } =
+          containerRef.current.getBoundingClientRect();
+        setDimensions({ width: currentWidth, height: currentHeight });
       }
     };
 
@@ -89,23 +77,32 @@ export function DotPattern({
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const dots = Array.from(
-    {
-      length:
-        Math.ceil(dimensions.width / width) *
-        Math.ceil(dimensions.height / height),
-    },
-    (_, i) => {
-      const col = i % Math.ceil(dimensions.width / width);
-      const row = Math.floor(i / Math.ceil(dimensions.width / width));
+  useEffect(() => {
+    if (glow) {
+      ensureDotPatternStyles();
+    }
+  }, [glow]);
+
+  const columns = Math.max(0, Math.ceil(dimensions.width / width));
+  const rows = Math.max(0, Math.ceil(dimensions.height / height));
+
+  const dots = useMemo(() => {
+    if (!columns || !rows) {
+      return [];
+    }
+
+    return Array.from({ length: columns * rows }, (_, index) => {
+      const col = index % columns;
+      const row = Math.floor(index / columns);
+
       return {
         x: col * width + cx,
         y: row * height + cy,
-        delay: Math.random() * 5,
-        duration: Math.random() * 3 + 2,
+        delay: glow ? Math.random() * 5 : 0,
+        duration: glow ? Math.random() * 3 + 2 : 0,
       };
-    },
-  );
+    });
+  }, [columns, rows, width, height, cx, cy, glow]);
 
   return (
     <svg
@@ -115,6 +112,7 @@ export function DotPattern({
         "pointer-events-none absolute inset-0 h-full w-full text-neutral-400/80",
         className,
       )}
+      style={{ position: "absolute", top: y, left: x, ...(incomingStyle ?? {}) }}
       {...props}
     >
       <defs>
@@ -123,32 +121,21 @@ export function DotPattern({
           <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
         </radialGradient>
       </defs>
-      {dots.map((dot, index) => (
-        <motion.circle
+      {dots.map((dot) => (
+        <circle
           key={`${dot.x}-${dot.y}`}
           cx={dot.x}
           cy={dot.y}
           r={cr}
           fill={glow ? `url(#${id}-gradient)` : "currentColor"}
-          initial={glow ? { opacity: 0.4, scale: 1 } : {}}
-          animate={
+          style={
             glow
               ? {
-                  opacity: [0.4, 1, 0.4],
-                  scale: [1, 1.5, 1],
+                  animation: `dotPatternGlow ${dot.duration}s ease-in-out ${dot.delay}s infinite`,
+                  transformOrigin: "center",
+                  transformBox: "fill-box",
                 }
-              : {}
-          }
-          transition={
-            glow
-              ? {
-                  duration: dot.duration,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: dot.delay,
-                  ease: "easeInOut",
-                }
-              : {}
+              : undefined
           }
         />
       ))}

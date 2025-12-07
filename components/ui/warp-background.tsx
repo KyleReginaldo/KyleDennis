@@ -1,8 +1,36 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
-import React, { HTMLAttributes, useCallback, useMemo } from "react";
+import React, {
+  CSSProperties,
+  HTMLAttributes,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
+
+let warpBackgroundStylesInjected = false;
+
+const ensureWarpBackgroundStyles = () => {
+  if (typeof document === "undefined" || warpBackgroundStylesInjected) {
+    return;
+  }
+
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes warpBeamSlide {
+      0% {
+        transform: translate(-50%, 100%);
+      }
+
+      100% {
+        transform: translate(-50%, -100%);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  warpBackgroundStylesInjected = true;
+};
 
 interface WarpBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -27,27 +55,20 @@ const Beam = ({
   duration: number;
 }) => {
   const hue = Math.floor(Math.random() * 360);
-  const ar = Math.floor(Math.random() * 10) + 1;
+  const aspectRatio = Math.floor(Math.random() * 10) + 1;
+
+  const beamStyle: CSSProperties & Record<string, string | number> = {
+    "--x": `${x}`,
+    "--width": `${width}`,
+    "--aspect-ratio": `${aspectRatio}`,
+    "--background": `linear-gradient(hsl(${hue} 80% 60%), transparent)`,
+    animation: `warpBeamSlide ${duration}s linear ${delay}s infinite`,
+  };
 
   return (
-    <motion.div
-      style={
-        {
-          "--x": `${x}`,
-          "--width": `${width}`,
-          "--aspect-ratio": `${ar}`,
-          "--background": `linear-gradient(hsl(${hue} 80% 60%), transparent)`,
-        } as React.CSSProperties
-      }
-      className={`absolute left-[var(--x)] top-0 [aspect-ratio:1/var(--aspect-ratio)] [background:var(--background)] [width:var(--width)]`}
-      initial={{ y: "100cqmax", x: "-50%" }}
-      animate={{ y: "-100%", x: "-50%" }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "linear",
-      }}
+    <div
+      style={beamStyle}
+      className="absolute left-[var(--x)] top-0 [aspect-ratio:1/var(--aspect-ratio)] [background:var(--background)] [width:var(--width)] will-change-transform"
     />
   );
 };
@@ -64,6 +85,10 @@ export const WarpBackground: React.FC<WarpBackgroundProps> = ({
   gridColor = "var(--border)",
   ...props
 }) => {
+  useEffect(() => {
+    ensureWarpBackgroundStyles();
+  }, []);
+
   const generateBeams = useCallback(() => {
     const beams = [];
     const cellsPerSide = Math.floor(100 / beamSize);
