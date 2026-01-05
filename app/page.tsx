@@ -5,40 +5,43 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Section from "@/components/ui/section"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import Typing from "@/components/ui/typing"
 import { Calendar, Code, Download, Mail, MapPin } from "lucide-react"
 import Head from "next/head"
+import Image from "next/image"
 
 const frameworks = [
-  { name: "Flutter", imageLink: "/assets/stacks/flutter.png" },
-  { name: "NestJS", imageLink: "/assets/stacks/nest.png" },
-  { name: "Next.js", imageLink: "/assets/stacks/nextjs.png" },
-  { name: "React", imageLink: "/assets/stacks/reactjs.png" },
+  { name: "Flutter", imageLink: "/assets/stacks/flutter.png", years: "4 years", description: "Cross-platform mobile development framework for building beautiful native apps" },
+  { name: "NestJS", imageLink: "/assets/stacks/nest.png", years: "3 years", description: "Progressive Node.js framework for building efficient and scalable server-side applications" },
+  { name: "Next.js", imageLink: "/assets/stacks/nextjs.png", years: "3 years", description: "React framework for production-grade applications with hybrid static and server rendering" },
+  { name: "React", imageLink: "/assets/stacks/reactjs.png", years: "3 years", description: "JavaScript library for building user interfaces with component-based architecture" },
 ]
 
 const services = [
-  { name: "Supabase", imageLink: "/assets/stacks/supabase.png" },
-  { name: "Firebase", imageLink: "/assets/stacks/firebase.png" },
-  { name: "SendGrid", imageLink: "/assets/stacks/sendgrid.png" },
-  { name: "Twilio", imageLink: "/assets/stacks/twilio.png" },
-  { name: "Stripe", imageLink: "/assets/stacks/stripe.png" },
+  { name: "Supabase", imageLink: "/assets/stacks/supabase.png", years: "3 years", description: "Open source Firebase alternative with Postgres database, authentication, and real-time subscriptions" },
+  { name: "Firebase", imageLink: "/assets/stacks/firebase.png", years: "3 years", description: "Google's platform for mobile and web app development with real-time database and hosting" },
+  { name: "SendGrid", imageLink: "/assets/stacks/sendgrid.png", years: "3 years", description: "Cloud-based email delivery service for transactional and marketing emails" },
+  { name: "Twilio", imageLink: "/assets/stacks/twilio.png", years: "3 years", description: "Communications platform for SMS, voice, and video messaging integration" },
+  { name: "Stripe", imageLink: "/assets/stacks/stripe.png", years: "3 years", description: "Payment processing platform for online businesses and e-commerce applications" },
+  { name: "AWS", imageLink: "/assets/stacks/aws.png", years: "2 months", description: "Amazon Web Services cloud computing platform for scalable infrastructure and services" },
 ]
 
 const tools = [
-  { name: "GitHub", imageLink: "/assets/stacks/git.png" },
-  { name: "Docker", imageLink: "/assets/stacks/docker.png" },
-  { name: "Cloud Run", imageLink: "/assets/stacks/cloudrun.png" },
-  { name: "Postman", imageLink: "/assets/stacks/postman.png" },
-  { name: "Figma", imageLink: "/assets/stacks/figma.png" },
-  { name: "VS Code", imageLink: "/assets/stacks/vscode.png" },
-  { name: "Vite", imageLink: "/assets/stacks/vite.js.png" },
+  { name: "GitHub", imageLink: "/assets/stacks/git.png", years: "3 years", description: "Version control and collaboration platform for software development teams" },
+  { name: "Docker", imageLink: "/assets/stacks/docker.png", years: "3 years", description: "Containerization platform for building, shipping, and running applications" },
+  { name: "Cloud Run", imageLink: "/assets/stacks/cloudrun.png", years: "3 years", description: "Fully managed serverless platform for deploying containerized applications" },
+  { name: "Postman", imageLink: "/assets/stacks/postman.png", years: "3 years", description: "API development and testing tool for building and debugging REST APIs" },
+  { name: "Figma", imageLink: "/assets/stacks/figma.png", years: "3 years", description: "Collaborative interface design tool for creating user interfaces and prototypes" },
+  { name: "VS Code", imageLink: "/assets/stacks/vscode.png", years: "3 years", description: "Lightweight but powerful source code editor with extensive extension support" },
+  { name: "Vite", imageLink: "/assets/stacks/vite.js.png", years: "3 years", description: "Fast frontend build tool with instant server start and lightning-fast HMR" },
 ]
 
 const languages = [
-  { name: "TypeScript", imageLink: "/assets/stacks/ts.png" },
-  { name: "JavaScript", imageLink: "/assets/stacks/js.png" },
-  { name: "Python", imageLink: "/assets/stacks/py.png" },
-  { name: "Dart", imageLink: "/assets/stacks/dart.png" },
+  { name: "TypeScript", imageLink: "/assets/stacks/ts.png", years: "3 years", description: "Typed superset of JavaScript that compiles to plain JavaScript for safer code" },
+  { name: "JavaScript", imageLink: "/assets/stacks/js.png", years: "3 years", description: "Dynamic programming language for web development and interactive content" },
+  { name: "Python", imageLink: "/assets/stacks/py.png", years: "3 years", description: "High-level programming language for automation, data analysis, and backend development" },
+  { name: "Dart", imageLink: "/assets/stacks/dart.png", years: "3 years", description: "Client-optimized language for building fast apps on any platform with Flutter" },
 ]
 
 const workHistory = [
@@ -154,7 +157,7 @@ const testimonials = [
   },
 ]
 
-const labelClassName = "text-sm font-semibold uppercase tracking-wide text-black mb-[10px]"
+const labelClassName = "text-sm font-semibold uppercase tracking-wide text-white mb-[10px]"
 
 
 const resolveLinkLabel = (project: (typeof projects)[number]) => {
@@ -180,8 +183,8 @@ export default function Home() {
       <main className="mx-auto flex w-full max-w-[680px] flex-col gap-24 px-6 py-16 pb-36">
         <Section id="overview" className="space-y-0">
           <div className="flex flex-col items-center gap-6 text-center">
-            <Avatar className="h-24 w-24 border border-primary/20">
-              <AvatarImage src="/assets/kylepogi.jpg" alt="Kyle Reginaldo" />
+            <Avatar className="h-28 w-28 border border-primary/20">
+              <AvatarImage src="/assets/kyleai.png" alt="Kyle Reginaldo" />
               <AvatarFallback className="text-3xl font-semibold">KR</AvatarFallback>
             </Avatar>
 
@@ -258,13 +261,27 @@ export default function Home() {
               Tools, frameworks, and services I rely on to ship production-ready products.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {stackItems.map((item) => (
-              <Badge key={item.name} variant="outline" className="rounded-full px-3 py-1 text-xs">
-                {item.name}
-              </Badge>
-            ))}
-          </div>
+          <TooltipProvider delayDuration={100}>
+            <div className="flex flex-wrap gap-2">
+              {stackItems.map((item) => (
+                <Tooltip key={item.name}>
+                  <TooltipTrigger asChild>
+                    <div>
+                      <Badge variant="outline" className="rounded-full px-3 py-1 bg-gray-600 text-xs cursor-pointer transition-all hover:bg-gray-500">
+                        <Image src={item.imageLink} alt={item.name} width={20} height={20} /> {item.name}
+                      </Badge>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs bg-popover text-popover-foreground">
+                    <div className="space-y-1">
+                      <p className="font-semibold text-white">{item.name} • {item.years}</p>
+                      <p className="text-xs text-gray-300">{item.description}</p>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+          </TooltipProvider>
         </Section>
 
         <Section id="projects" className="space-y-6">
