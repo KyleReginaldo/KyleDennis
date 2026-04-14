@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:magicui.design)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:cobe.vercel.app)",
+      "WebFetch(domain:dribbble.com)",
+      "WebFetch(domain:www.behance.net)"
+    ],
+    "additionalDirectories": [
+      "/Users/koyaemer/Development/KyleDennis/public/assets/stacks"
+    ]
+  }
+}

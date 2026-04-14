@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 import { Dock, DockIcon } from "@/registry/magicui/dock";
 
@@ -107,9 +108,15 @@ const links = [
   },
 ] as const;
 
+const MailIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+  </svg>
+)
+
 export function DockNav() {
   return (
-    <Dock className="mx-auto max-w-[360px]">
+    <Dock className="mx-auto max-w-[420px]">
       {links.map((link) => (
         <DockIcon asChild key={link.label} className="hover:border-primary/40">
           <a
@@ -130,6 +137,23 @@ export function DockNav() {
           </a>
         </DockIcon>
       ))}
+
+      <DockIcon asChild className="hover:border-primary/40">
+        <Link
+          href="/contact"
+          aria-label="Contact"
+          className="group relative flex h-full w-full items-center justify-center text-muted-foreground transition-colors duration-200 hover:text-foreground"
+        >
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 rounded-[18px] bg-gradient-to-b from-white/20 via-white/0 to-black/20 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          />
+          <MailIcon />
+          <span className="pointer-events-none absolute -top-9 scale-90 rounded-full bg-background/90 px-2 py-1 text-[11px] font-medium text-foreground opacity-0 shadow-lg shadow-black/20 ring-1 ring-white/10 transition-all duration-200 group-hover:-translate-y-1.5 group-hover:scale-100 group-hover:opacity-100">
+            Contact
+          </span>
+        </Link>
+      </DockIcon>
     </Dock>
   );
 }

@@ -1,3 +1,4 @@
+import { ChatFab } from "@/components/ui/chat-fab"
 import { DockNav } from "@/components/navigation/dock-nav"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata } from "next"
@@ -35,6 +36,7 @@ export default function RootLayout({
               <DockNav />
             </div>
           </div>
+          <ChatFab />
         </MantineProvider>
       </body>
     </html>
