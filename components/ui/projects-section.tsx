@@ -2,6 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExternalLink } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
 
 type WebProject = {
   title: string
@@ -113,6 +114,19 @@ const backendProjects: BackendProject[] = [
 
 function BrowserPreview({ project }: { project: WebProject }) {
   const hostname = project.link.replace("https://", "").replace(/\/$/, "")
+  const [loaded, setLoaded] = useState(false)
+  const previewRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = previewRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setLoaded(true) },
+      { rootMargin: "200px" }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="overflow-hidden rounded-xl border border-muted-foreground/20">
@@ -136,24 +150,29 @@ function BrowserPreview({ project }: { project: WebProject }) {
         </a>
       </div>
 
-      {/* Live iframe preview */}
-      <div className="relative h-[360px] overflow-hidden bg-white">
-        <iframe
-          src={project.link}
-          title={project.title}
-          loading="lazy"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "250%",
-            height: "250%",
-            transform: "scale(0.4)",
-            transformOrigin: "top left",
-            border: "none",
-            pointerEvents: "none",
-          }}
-        />
+      {/* Live iframe preview — only mounts when scrolled into view */}
+      <div ref={previewRef} className="relative h-[360px] overflow-hidden bg-zinc-900">
+        {loaded ? (
+          <iframe
+            src={project.link}
+            title={project.title}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "250%",
+              height: "250%",
+              transform: "scale(0.4)",
+              transformOrigin: "top left",
+              border: "none",
+              pointerEvents: "none",
+            }}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <span className="text-xs text-zinc-600">Loading preview…</span>
+          </div>
+        )}
       </div>
 
       {/* Footer */}

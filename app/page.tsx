@@ -190,7 +190,7 @@ export default function Home() {
           <TestimonialsSection />
         </Section>
 
-        <Section id="reach" className="space-y-6">
+        <Section id="activity" className="space-y-6">
           <GlobeSection />
         </Section>
       </main>

@@ -46,6 +46,7 @@ export function Globe({
   const phiRef = useRef(config.phi ?? 0)
   const widthRef = useRef(0)
   const animFrameRef = useRef<number>(0)
+  const isInViewRef = useRef(false)
   const pointerInteracting = useRef<number | null>(null)
   const pointerInteractionMovement = useRef(0)
 
@@ -89,8 +90,8 @@ export function Globe({
       height: widthRef.current * 2,
     })
 
-    // cobe v2 uses globe.update() for animation — drive with requestAnimationFrame
     const animate = () => {
+      if (!isInViewRef.current) return
       if (!pointerInteracting.current) phiRef.current += 0.005
       globe.update({
         phi: phiRef.current + rs.get(),
@@ -99,7 +100,17 @@ export function Globe({
       })
       animFrameRef.current = requestAnimationFrame(animate)
     }
-    animFrameRef.current = requestAnimationFrame(animate)
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isInViewRef.current = entry.isIntersecting
+        if (entry.isIntersecting) {
+          animFrameRef.current = requestAnimationFrame(animate)
+        }
+      },
+      { threshold: 0 }
+    )
+    if (canvasRef.current) intersectionObserver.observe(canvasRef.current)
 
     setTimeout(() => {
       if (canvasRef.current) canvasRef.current.style.opacity = "1"
@@ -108,6 +119,7 @@ export function Globe({
     return () => {
       globe.destroy()
       cancelAnimationFrame(animFrameRef.current)
+      intersectionObserver.disconnect()
       window.removeEventListener("resize", onResize)
     }
   }, [rs, config])
