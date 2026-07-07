@@ -1,63 +1,53 @@
 "use client"
 
-const OPEN_QUOTE = '\u201C'
-const CLOSE_QUOTE = '\u201D'
+import { testimonials } from "@/lib/data/testimonials"
+import { motion } from "motion/react"
 
-const testimonials = [
-  {
-    initials: "KJ",
-    name: "Kathlyn Jordan",
-    role: "UI/UX Designer",
-    quote: "Kyle helped me translate complex product briefs into clean user journeys that shipped on schedule.",
-  },
-  {
-    initials: "KR",
-    name: "Karl Reginaldo",
-    role: "Full Stack Developer",
-    quote: "Watching Kyle grow into a reliable Flutter engineer has been inspiring—he handles projects end-to-end with care.",
-  },
-  {
-    initials: "JM",
-    name: "Jannray Mostajo",
-    role: "Mobile App Developer",
-    quote: "From project planning to release, Kyle keeps teams aligned and QA focused without heavy process.",
-  },
-  {
-    initials: "KB",
-    name: "Kimberly Bay",
-    role: "Graphic Designer",
-    quote: "He communicates ideas clearly and backs design suggestions with real-world references my clients love.",
-  },
-]
+const OPEN_QUOTE = "“"
+const CLOSE_QUOTE = "”"
 
 export function TestimonialsSection() {
   return (
-    <div className="space-y-6">
-      <div className="space-y-2 text-left">
-        <h2 className="text-lg font-semibold">Kind words</h2>
-        <p className="text-sm text-muted-foreground">
-          Honest feedback from collaborators who value clarity, delivery, and calm problem-solving.
-        </p>
-      </div>
+    <section id="testimonials" className="relative py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-14 max-w-2xl"
+        >
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Kind Words</p>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Feedback from people I&apos;ve worked with.
+          </h2>
+        </motion.div>
 
-      <div className="flex flex-col divide-y divide-muted-foreground/10">
-        {testimonials.map((t) => (
-          <div key={t.name} className="relative py-8 first:pt-2 last:pb-0">
-            {/* Decorative large quote mark */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute right-0 top-4 select-none font-serif text-[96px] leading-none text-foreground/[0.05]"
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-7"
             >
-              {OPEN_QUOTE}
-            </span>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute right-4 top-2 select-none font-serif text-7xl leading-none text-white/[0.06]"
+              >
+                {OPEN_QUOTE}
+              </span>
 
-            <div className="space-y-5">
-              <p className="text-[15px] leading-relaxed text-foreground/90">
-                {OPEN_QUOTE}{t.quote}{CLOSE_QUOTE}
+              <p className="relative text-[15px] leading-relaxed text-foreground/90">
+                {OPEN_QUOTE}
+                {t.quote}
+                {CLOSE_QUOTE}
               </p>
 
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-muted-foreground/20 bg-muted text-xs font-semibold">
+              <div className="relative mt-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/30 to-purple-500/30 text-xs font-semibold">
                   {t.initials}
                 </div>
                 <div>
@@ -65,10 +55,10 @@ export function TestimonialsSection() {
                   <p className="text-xs text-muted-foreground">{t.role}</p>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
