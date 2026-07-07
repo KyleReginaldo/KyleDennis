@@ -1,5 +1,6 @@
-import { ChatFab } from "@/components/ui/chat-fab"
 import { DockNav } from "@/components/navigation/dock-nav"
+import { Navbar } from "@/components/sections/navbar"
+import { ChatFab } from "@/components/ui/chat-fab"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata } from "next"
 import type React from "react"
@@ -7,9 +8,9 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Kyle Reginaldo - Software Developer",
+  title: "Kyle Reginaldo — Product Engineer",
   description:
-    "Software developer specializing in building exceptional digital experiences. Currently focused on developing mobile applications using Flutter and web applications using Next.js and React.",
+    "Product engineer who builds complete digital products for real users — mobile apps, web platforms, and the backend systems behind them — from architecture to App Store & Play Store deployment.",
   icons: {
     icon: '/kyle.ico',      // primary (PNG is widely supported)
     shortcut: '/kyle.ico',  // fallback .ico
@@ -24,9 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`font-sans antialiased`}> 
+      <body className={`font-sans antialiased`}>
         <MantineProvider>
           <div className="relative flex min-h-screen flex-col">
+            <Navbar />
             <main className="flex-1">
               <Suspense>{children}</Suspense>
             </main>
