@@ -40,15 +40,15 @@
 }
 
 .dark {
-  /* softened dark theme: slightly lighter background and reduced contrast */
-  --background: #131b25;
+  /* deepened dark theme: darker background so the cursor glow reads with more contrast */
+  --background: #05070b;
   --foreground: #ffffff;
-  --card: #1a2332;
+  --card: #131a24;
   --card-foreground: #ffffff;
-  --popover: #151d2a;
+  --popover: #10161f;
   --popover-foreground: #ffffff;
   --primary: #4a9eff;
-  --primary-foreground: #131b25;
+  --primary-foreground: #05070b;
   --secondary: #2d3f52;
   --secondary-foreground: #ffffff;
   --muted: #2d3f52;
@@ -215,4 +215,23 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Dramatic light-bulb theme switch: the new theme wipes in as an expanding
+   circle from the exact spot the toggle was clicked (--theme-toggle-x/y). */
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0% at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%));
+  }
+  to {
+    clip-path: circle(150% at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%));
+  }
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: theme-reveal 700ms ease-in-out;
 }

@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExternalLink } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 
 type WebProject = {
   title: string
@@ -81,7 +81,7 @@ const mobileProjects: MobileProject[] = [
     title: "Celebreak",
     description: "Match with local football players and reserve pitches in minutes.",
     image: "/assets/mockup/celebreak.png",
-    tags: ["Flutter", "NestJS", "Sports"],
+    tags: ["React Native", "AWS", "Sports"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.lewisblack.celebreakOne",
     appStoreLink: "https://apps.apple.com/ph/app/celebreak/id1244710855",
   },
