@@ -1,5 +1,4 @@
 import { DockNav } from "@/components/navigation/dock-nav"
-import { Navbar } from "@/components/sections/navbar"
 import { ChatFab } from "@/components/ui/chat-fab"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata } from "next"
@@ -28,7 +27,6 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         <MantineProvider>
           <div className="relative flex min-h-screen flex-col">
-            <Navbar />
             <main className="flex-1">
               <Suspense>{children}</Suspense>
             </main>
