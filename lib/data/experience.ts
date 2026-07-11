@@ -2,7 +2,7 @@ export type ExperienceEntry = {
   company: string
   role: string
   period: string
-  logo: string
+  logo?: string
   responsibilities: string[]
   tech: string[]
 }
@@ -10,36 +10,34 @@ export type ExperienceEntry = {
 export const experience: ExperienceEntry[] = [
   {
     company: "Mobile Medical Lab",
-    role: "Lead Flutter & API Engineer",
-    period: "2024 — Present",
+    role: "Full Stack Developer",
+    period: "May 2024 - Present",
     logo: "/mobilemedicallab-logo.webp",
     responsibilities: [
-      "Own the Flutter app end-to-end, from architecture to release",
-      "Designed and built the NestJS API used by both mobile and web",
-      "Built the Next.js booking website sharing the same backend",
+      "Developed and maintained the mobile app enabling users to conveniently book on-demand medical services",
+      "Built a seamless booking experience across iOS and Android, plus the companion website with Next.js",
+      "Collaborated with product managers and backend developers to optimize performance and user experience",
     ],
-    tech: ["Flutter", "NestJS", "Next.js", "Supabase"],
+    tech: ["Flutter", "Next.js", "NestJS", "Supabase"],
   },
   {
     company: "Celebreak",
     role: "Flutter Developer",
-    period: "2024 — 2025",
+    period: "Nov 2024 - Feb 2025",
     logo: "/celebreak-logo.webp",
     responsibilities: [
-      "Built and maintained the Flutter app for match-finding and pitch bookings",
-      "Integrated a NestJS backend for matchmaking and reservations",
+      "Contributed to TownSquare, an application fostering community interaction among users",
     ],
-    tech: ["Flutter", "NestJS"],
+    tech: ["Flutter"],
   },
   {
-    company: "Servebeez",
-    role: "Mobile Engineer",
-    period: "2024 — 2026",
-    logo: "/servebeez-logo.webp",
+    company: "Avyan Global",
+    role: "Flutter Developer",
+    period: "Jun 2022 - Mar 2024",
     responsibilities: [
-      "Built the customer-facing Flutter app for an on-demand services marketplace",
-      "Integrated Supabase for auth, data, and realtime booking updates",
+      "Developed Alt Switch, a blockchain-based mobile application",
+      "Gained hands-on experience with RESTful APIs and decentralized technologies",
     ],
-    tech: ["Flutter", "Supabase", "AWS"],
+    tech: ["Flutter", "REST API"],
   },
 ]

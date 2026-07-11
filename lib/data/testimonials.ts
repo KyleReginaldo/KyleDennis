@@ -16,7 +16,7 @@ export const testimonials: Testimonial[] = [
     initials: "KR",
     name: "Karl Reginaldo",
     role: "Full Stack Developer",
-    quote: "Watching Kyle grow into a reliable Flutter engineer has been inspiring—he handles projects end-to-end with care.",
+    quote: "Watching Kyle grow into a reliable Flutter engineer has been inspiring. He handles projects end to end with care.",
   },
   {
     initials: "JM",

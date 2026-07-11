@@ -1,11 +1,10 @@
 "use client"
 
 import { sendEmail, type SendEmailState } from "@/app/actions/send-email"
-import { ArrowLeft, CheckCircle, Clock, Loader2, MapPin, Send } from "lucide-react"
+import { Reveal } from "@/components/ui/reveal"
+import { ArrowLeft, CheckCircle, Loader2, MapPin, Send } from "lucide-react"
 import Link from "next/link"
-import { useActionState, useState } from "react"
-
-const EMAIL = "kyledennis099@gmail.com"
+import { useActionState } from "react"
 
 const socials = [
   {
@@ -56,18 +55,10 @@ const socials = [
 const initialState: SendEmailState = { status: "idle" }
 
 export default function ContactPage() {
-  const [copied, setCopied] = useState(false)
   const [state, action, pending] = useActionState(sendEmail, initialState)
 
-  const copy = async () => {
-    await navigator.clipboard.writeText(EMAIL)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
   return (
-    <main className="mx-auto flex w-full max-w-[680px] flex-col gap-12 px-6 py-16 pb-36">
-      {/* Back */}
+    <main className="mx-auto flex w-full max-w-4xl flex-col gap-14 px-6 py-24 pb-32">
       <Link
         href="/"
         className="flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -76,8 +67,7 @@ export default function ContactPage() {
         Back
       </Link>
 
-      {/* Header */}
-      <div className="space-y-4">
+      <Reveal className="space-y-4">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -86,15 +76,15 @@ export default function ContactPage() {
           <span className="text-xs font-medium text-emerald-500">Available for work</span>
         </div>
         <div className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight">{"Let's build something."}</h1>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-            Open to freelance projects, full-time roles, and collaborations. If you have an idea or an opportunity, I would love to hear about it.
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{"Let's build something."}</h1>
+          <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
+            Open to freelance projects, full-time roles, and collaborations. If you have an idea or an
+            opportunity, I would love to hear about it.
           </p>
         </div>
-      </div>
+      </Reveal>
 
-      {/* Direct mailer form */}
-      <div className="space-y-3">
+      <Reveal delay={0.1} className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
           Send a message
         </p>
@@ -118,8 +108,8 @@ export default function ContactPage() {
             </button>
           </div>
         ) : (
-          <form action={action} className="overflow-hidden rounded-2xl border border-muted-foreground/20 bg-muted/10">
-            <div className="grid grid-cols-1 divide-y divide-muted-foreground/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+          <form action={action} className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+            <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
               <div className="flex flex-col gap-1 px-4 py-3.5">
                 <label htmlFor="name" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
                   Your name
@@ -150,7 +140,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-1 border-t border-muted-foreground/10 px-4 py-3.5">
+            <div className="flex flex-col gap-1 border-t border-white/10 px-4 py-3.5">
               <label htmlFor="message" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
                 Message
               </label>
@@ -165,7 +155,7 @@ export default function ContactPage() {
               />
             </div>
 
-            <div className="flex items-center justify-between border-t border-muted-foreground/10 px-4 py-3">
+            <div className="flex items-center justify-between border-t border-white/10 px-4 py-3">
               {state.status === "error" ? (
                 <p className="text-xs text-red-400">{state.message}</p>
               ) : (
@@ -176,7 +166,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={pending}
-                className="flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {pending ? (
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -188,12 +178,9 @@ export default function ContactPage() {
             </div>
           </form>
         )}
-      </div>
+      </Reveal>
 
-    
-
-      {/* Socials */}
-      <div className="space-y-3">
+      <Reveal delay={0.15} className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
           Also reachable on
         </p>
@@ -204,7 +191,7 @@ export default function ContactPage() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3.5 rounded-xl border border-muted-foreground/20 bg-muted/10 px-4 py-3.5 transition-colors hover:border-muted-foreground/40 hover:bg-muted/20"
+              className="group flex items-center gap-3.5 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-colors hover:border-primary/30"
             >
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/60">
                 {s.icon}
@@ -217,17 +204,12 @@ export default function ContactPage() {
             </a>
           ))}
         </div>
-      </div>
+      </Reveal>
 
-      {/* Footer meta */}
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-muted-foreground/10 pt-6 text-xs text-muted-foreground/60">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/10 pt-6 text-xs text-muted-foreground/60">
         <span className="flex items-center gap-1.5">
           <MapPin className="h-3.5 w-3.5" />
           Cavite, Philippines
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Clock className="h-3.5 w-3.5" />
-          GMT+8 · Philippine Standard Time
         </span>
       </div>
     </main>

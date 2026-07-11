@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Iphone15Pro } from "@/components/ui/iphone-15-pro"
 import { projectCategories, projects, type Project } from "@/lib/data/projects"
 import {
   AlertTriangle,
@@ -20,16 +21,69 @@ import {
   Smartphone,
 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
+
+function useInView<T extends Element>(rootMargin = "200px") {
+  const ref = useRef<T>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true)
+      },
+      { rootMargin }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [rootMargin])
+
+  return { ref, inView }
+}
+
+function LivePreview({ url, title }: { url: string; title: string }) {
+  const { ref, inView } = useInView<HTMLDivElement>()
+  const hostname = url.replace("https://", "").replace(/\/$/, "")
+
+  return (
+    <div className="flex h-full w-full flex-col overflow-hidden">
+      <div className="flex shrink-0 items-center gap-2 border-b border-white/10 bg-black/40 px-3 py-1.5">
+        <div className="flex shrink-0 gap-1">
+          <span className="block h-1.5 w-1.5 rounded-full bg-[#ff5f57]" />
+          <span className="block h-1.5 w-1.5 rounded-full bg-[#febc2e]" />
+          <span className="block h-1.5 w-1.5 rounded-full bg-[#28c840]" />
+        </div>
+        <span className="flex-1 truncate text-center text-[10px] text-muted-foreground/70">{hostname}</span>
+      </div>
+      <div ref={ref} className="relative flex-1 overflow-hidden bg-black/20">
+        {inView ? (
+          <iframe
+            src={url}
+            title={title}
+            className="pointer-events-none absolute top-0 left-0 origin-top-left border-0"
+            style={{ width: "300%", height: "300%", transform: "scale(0.3333)" }}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-[11px] text-muted-foreground/50">
+            Loading preview…
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
 
 function ProjectMedia({ project }: { project: Project }) {
+  if (project.links.live) {
+    return <LivePreview url={project.links.live} title={project.title} />
+  }
   if (project.image) {
     return (
-      <img
-        src={project.image}
-        alt={project.title}
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-      />
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 via-purple-500/5 to-transparent py-3">
+        <Iphone15Pro className="h-auto w-[120px]" src={project.image} />
+      </div>
     )
   }
   return (
@@ -110,9 +164,9 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-all hover:-translate-y-1 hover:border-white/20 hover:shadow-2xl hover:shadow-black/40"
+      className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-2xl hover:shadow-black/40"
     >
-      <div className="h-48 w-full overflow-hidden">
+      <div className="h-56 w-full overflow-hidden">
         <ProjectMedia project={project} />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-6">
@@ -143,7 +197,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
 
 function CaseStudyDialog({ project, onClose }: { project: Project | null; onClose: () => void }) {
   return (
-    <Dialog open={!!project} onOpenChange={(v) => !v && onClose()}>
+    <Dialog open={!!project} onOpenChange={(v: boolean) => !v && onClose()}>
       {project && (
         <DialogContent>
           <DialogHeader>
@@ -244,9 +298,9 @@ export function Projects() {
           className="mb-10 max-w-2xl"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Featured Work</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Products shipped end-to-end.</h2>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Products shipped end to end.</h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Real apps and platforms I&apos;ve built and shipped, from architecture to release.
+            {projects.length} real apps and platforms built and shipped, from architecture to release, all live in production.
           </p>
         </motion.div>
 

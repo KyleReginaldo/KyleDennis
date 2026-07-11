@@ -50,7 +50,7 @@ export function Contact() {
             </Magnetic>
             <Magnetic strength={0.3}>
               <a
-                href="/kyle_reginaldo.pdf"
+                href="/kylereginaldo.pdf"
                 download
                 className="inline-flex items-center gap-2 rounded-full border border-muted-foreground/25 px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-muted/40"
               >

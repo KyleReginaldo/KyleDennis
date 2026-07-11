@@ -1,8 +1,9 @@
 "use client"
 
+import { VisitorBadge } from "@/components/ui/visitor-badge"
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
-import { useEffect, useState } from "react"
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react"
+import { useState } from "react"
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -20,16 +21,14 @@ const socials = [
 
 export function Footer() {
   const [showTop, setShowTop] = useState(false)
+  const { scrollY } = useScroll()
 
-  useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 800)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setShowTop(latest > 800)
+  })
 
   return (
-    <footer className="relative border-t border-white/10 py-12">
+    <footer className="relative border-t border-white/10 pt-12 pb-32 sm:pb-16">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 sm:flex-row sm:justify-between">
         <a href="#home" className="text-lg font-bold tracking-tight">
           KR<span className="text-primary">.</span>
@@ -63,8 +62,9 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 max-w-7xl border-t border-white/5 px-6 pt-6 text-center text-xs text-muted-foreground/60">
-        © {new Date().getFullYear()} Kyle Reginaldo. All rights reserved.
+      <div className="mx-auto mt-8 flex max-w-7xl flex-col items-center gap-4 border-t border-white/5 px-6 pt-6 text-center text-xs text-muted-foreground/60 sm:flex-row sm:justify-between">
+        <span>© {new Date().getFullYear()} Kyle Reginaldo. All rights reserved.</span>
+        <VisitorBadge />
       </div>
 
       <AnimatePresence>

@@ -42,7 +42,7 @@ const points: { icon: LucideIcon; title: string; description: string }[] = [
   {
     icon: Heart,
     title: "Obsessed with polish",
-    description: "The difference between a working app and a great one is in the details — I care about both.",
+    description: "The difference between a working app and a great one is in the details, and I care about both.",
   },
 ]
 
@@ -62,8 +62,8 @@ export function About() {
             I build the whole product, not just the screens.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            I build for the people who end up using the product — mobile, web, or the backend
-            behind it — focused on shipping something fast, polished, and built to last.
+            I build for the people who end up using the product, whether it&apos;s mobile, web, or the
+            backend behind it, focused on shipping something fast, polished, and built to last.
           </p>
         </motion.div>
 

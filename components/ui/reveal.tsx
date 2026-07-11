@@ -1,34 +1,38 @@
 "use client"
 
-import { ReactNode, useEffect, useRef } from "react";
+import { motion, type Transition } from "motion/react"
+import type { ReactNode } from "react"
 
-export default function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement | null>(null)
+export const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+}
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up")
-            entry.target.classList.remove("opacity-0")
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.15 }
-    )
+const DEFAULT_TRANSITION: Transition = { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
 
-    observer.observe(el)
-
-    return () => observer.disconnect()
-  }, [])
-
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  margin = "-80px",
+  transition,
+}: {
+  children: ReactNode
+  className?: string
+  delay?: number
+  margin?: string
+  transition?: Transition
+}) {
   return (
-    <div ref={ref} className={`${className} opacity-0`}>
+    <motion.div
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin }}
+      transition={{ ...DEFAULT_TRANSITION, delay, ...transition }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   )
 }

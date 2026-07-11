@@ -33,7 +33,13 @@ export function ExperienceTimeline() {
                 className="relative flex items-start gap-6"
               >
                 <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-background">
-                  <img src={entry.logo} alt={`${entry.company} logo`} className="h-full w-full object-contain" />
+                  {entry.logo ? (
+                    <img src={entry.logo} alt={`${entry.company} logo`} className="h-full w-full object-contain" />
+                  ) : (
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      {entry.company.split(" ").map((w) => w[0]).join("")}
+                    </span>
+                  )}
                 </div>
                 <div className="flex-1 pt-0.5">
                   <div className="flex flex-wrap items-center justify-between gap-2">

@@ -1,8 +1,10 @@
 "use client"
 
-import { Magnetic } from "@/components/ui/magnetic"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { GridPattern } from "@/components/ui/grid-pattern"
-import { ArrowDown, ArrowRight, Code2 } from "lucide-react"
+import { Iphone15Pro } from "@/components/ui/iphone-15-pro"
+import { Magnetic } from "@/components/ui/magnetic"
+import { ArrowRight, Code2, MapPin } from "lucide-react"
 import { motion } from "motion/react"
 
 const HEADLINE = "Building products that users love, from idea to production."
@@ -41,13 +43,24 @@ export function Hero() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3 py-1.5"
+            className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-1.5 pr-4"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            <Avatar className="h-7 w-7 shrink-0">
+              <AvatarImage src="/assets/kyleai.png" alt="Kyle Reginaldo" />
+              <AvatarFallback className="text-[10px]">KR</AvatarFallback>
+            </Avatar>
+            <span className="h-4 w-px bg-white/10" />
+            <span className="text-sm font-medium">Kyle Reginaldo</span>
+            <span className="hidden items-center gap-1 text-xs text-muted-foreground sm:flex">
+              <MapPin className="h-3 w-3" /> Cavite, PH
             </span>
-            <span className="text-xs font-medium text-emerald-400">Available for new projects</span>
+            <span className="flex items-center gap-1.5 text-xs text-emerald-400">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              Available
+            </span>
           </motion.div>
 
           <motion.h1
@@ -65,7 +78,7 @@ export function Hero() {
                 ) : (
                   w
                 )}
-                {" "}
+                {" "}
               </motion.span>
             ))}
           </motion.h1>
@@ -76,8 +89,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="max-w-lg text-lg leading-relaxed text-muted-foreground"
           >
-            I design and build complete digital products — mobile apps, web platforms, and the
-            backend systems behind them — with modern architecture, cloud infrastructure, and
+            I design and build complete digital products: mobile apps, web platforms, and the
+            backend systems behind them, with modern architecture, cloud infrastructure, and
             interfaces people genuinely enjoy using.
           </motion.p>
 
@@ -117,13 +130,13 @@ export function Hero() {
           >
             <div className="pointer-events-none absolute h-72 w-72 rounded-full bg-primary/15 blur-[80px]" />
 
-            <motion.img
-              src="/assets/mockup/celebreak.png"
-              alt="Celebreak app running on a phone"
+            <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-64 drop-shadow-2xl sm:w-72"
-            />
+              className="relative drop-shadow-2xl"
+            >
+              <Iphone15Pro className="h-auto w-[220px]" src="/assets/mockup/celebreak.png" />
+            </motion.div>
 
             <motion.div
               animate={{ y: [0, -10, 0] }}
@@ -145,7 +158,7 @@ export function Hero() {
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               className="absolute -right-6 top-1/4 rounded-2xl border border-white/10 bg-white/5 px-3.5 py-2.5 shadow-xl backdrop-blur-md sm:-right-14"
             >
-              <p className="text-xs font-semibold">4.8 ★ rating</p>
+              <p className="text-xs font-semibold">4.8 star rating</p>
               <p className="text-[10px] text-muted-foreground">App Store & Play Store</p>
             </motion.div>
 
@@ -154,22 +167,12 @@ export function Hero() {
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               className="absolute -right-4 bottom-10 rounded-2xl border border-white/10 bg-white/5 px-3.5 py-2.5 shadow-xl backdrop-blur-md sm:-right-10"
             >
-              <p className="text-xs font-semibold">Mobile · Web · API</p>
+              <p className="text-xs font-semibold">Mobile, Web, API</p>
               <p className="text-[10px] text-muted-foreground">Full-stack delivery</p>
             </motion.div>
           </motion.div>
         </div>
       </div>
-
-      <motion.a
-        href="#about"
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground/50 transition-colors hover:text-muted-foreground"
-        aria-label="Scroll down"
-      >
-        <ArrowDown className="h-5 w-5" />
-      </motion.a>
     </section>
   )
 }
