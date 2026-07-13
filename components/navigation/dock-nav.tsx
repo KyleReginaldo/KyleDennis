@@ -128,10 +128,10 @@ export function DockNav() {
           >
             <span
               aria-hidden="true"
-              className="absolute inset-0 rounded-[18px] bg-gradient-to-b from-white/20 via-white/0 to-black/20 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              className="absolute inset-0 rounded-[18px] bg-foreground/[0.06] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
             />
             <link.icon className="relative h-5 w-5" />
-            <span className="pointer-events-none absolute -top-9 scale-90 rounded-full bg-background/90 px-2 py-1 text-[11px] font-medium text-foreground opacity-0 shadow-lg shadow-black/20 ring-1 ring-white/10 transition-all duration-200 group-hover:-translate-y-1.5 group-hover:scale-100 group-hover:opacity-100">
+            <span className="pointer-events-none absolute -top-9 scale-90 rounded-full bg-popover px-2 py-1 text-[11px] font-medium text-foreground opacity-0 shadow-lg shadow-black/10 ring-1 ring-border transition-all duration-200 group-hover:-translate-y-1.5 group-hover:scale-100 group-hover:opacity-100">
               {link.label}
             </span>
           </a>
@@ -146,10 +146,10 @@ export function DockNav() {
         >
           <span
             aria-hidden="true"
-            className="absolute inset-0 rounded-[18px] bg-gradient-to-b from-white/20 via-white/0 to-black/20 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            className="absolute inset-0 rounded-[18px] bg-foreground/[0.06] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
           />
           <MailIcon />
-          <span className="pointer-events-none absolute -top-9 scale-90 rounded-full bg-background/90 px-2 py-1 text-[11px] font-medium text-foreground opacity-0 shadow-lg shadow-black/20 ring-1 ring-white/10 transition-all duration-200 group-hover:-translate-y-1.5 group-hover:scale-100 group-hover:opacity-100">
+          <span className="pointer-events-none absolute -top-9 scale-90 rounded-full bg-popover px-2 py-1 text-[11px] font-medium text-foreground opacity-0 shadow-lg shadow-black/10 ring-1 ring-border transition-all duration-200 group-hover:-translate-y-1.5 group-hover:scale-100 group-hover:opacity-100">
             Contact
           </span>
         </Link>

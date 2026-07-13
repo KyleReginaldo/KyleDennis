@@ -91,37 +91,37 @@ export function GithubActivity() {
   })
 
   return (
-    <section id="github" className="relative py-28">
+    <section id="github" className="relative scroll-mt-14 py-28">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 max-w-2xl"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 max-w-2xl mx-auto text-center"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">GitHub Activity</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Code I ship, in public.</h2>
+          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">Code I ship, in public.</h2>
         </motion.div>
 
         {user && (
           <div className="mb-8 grid grid-cols-3 gap-4 sm:max-w-md">
-            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center">
+            <div className="rounded-2xl border border-border bg-card p-4 text-center">
               <p className="text-xl font-bold">{user.public_repos}</p>
               <p className="text-[11px] text-muted-foreground">Public Repos</p>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center">
+            <div className="rounded-2xl border border-border bg-card p-4 text-center">
               <p className="text-xl font-bold">{user.followers}</p>
               <p className="text-[11px] text-muted-foreground">Followers</p>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center">
+            <div className="rounded-2xl border border-border bg-card p-4 text-center">
               <p className="text-xl font-bold">{total.toLocaleString()}</p>
               <p className="text-[11px] text-muted-foreground">Contributions</p>
             </div>
           </div>
         )}
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-5">
+        <div className="rounded-3xl border border-border bg-card px-5 py-5">
           {loading ? (
             <div className="flex h-28 items-center justify-center">
               <span className="text-xs text-muted-foreground/50">Loading…</span>
@@ -217,7 +217,7 @@ export function GithubActivity() {
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-colors hover:border-white/20"
+                  className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-foreground/20"
                 >
                   <p className="truncate text-sm font-medium">{repo.name}</p>
                   <p className="line-clamp-2 text-xs text-muted-foreground">

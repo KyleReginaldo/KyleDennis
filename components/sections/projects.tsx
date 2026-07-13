@@ -49,7 +49,7 @@ function LivePreview({ url, title }: { url: string; title: string }) {
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden">
-      <div className="flex shrink-0 items-center gap-2 border-b border-white/10 bg-black/40 px-3 py-1.5">
+      <div className="flex shrink-0 items-center gap-2 border-b border-border bg-card px-3 py-1.5">
         <div className="flex shrink-0 gap-1">
           <span className="block h-1.5 w-1.5 rounded-full bg-[#ff5f57]" />
           <span className="block h-1.5 w-1.5 rounded-full bg-[#febc2e]" />
@@ -57,7 +57,7 @@ function LivePreview({ url, title }: { url: string; title: string }) {
         </div>
         <span className="flex-1 truncate text-center text-[10px] text-muted-foreground/70">{hostname}</span>
       </div>
-      <div ref={ref} className="relative flex-1 overflow-hidden bg-black/20">
+      <div ref={ref} className="relative flex-1 overflow-hidden bg-muted">
         {inView ? (
           <iframe
             src={url}
@@ -76,19 +76,42 @@ function LivePreview({ url, title }: { url: string; title: string }) {
 }
 
 function ProjectMedia({ project }: { project: Project }) {
+  if (project.logo) {
+    const accent = project.accent ?? "#0071e3"
+    return (
+      <div
+        className="relative flex h-full w-full items-center justify-center overflow-hidden p-10"
+        style={{
+          background: `linear-gradient(155deg, ${accent}26 0%, ${accent}0a 55%, transparent 100%)`,
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl"
+          style={{ backgroundColor: `${accent}33` }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.logo}
+          alt={`${project.title} logo`}
+          className="relative h-auto max-h-20 w-auto max-w-[55%] rounded-2xl object-contain shadow-lg shadow-black/10"
+        />
+      </div>
+    )
+  }
   if (project.links.live) {
     return <LivePreview url={project.links.live} title={project.title} />
   }
   if (project.image) {
     return (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 via-purple-500/5 to-transparent py-3">
+      <div className="flex h-full w-full items-center justify-center bg-muted py-3">
         <Iphone15Pro className="h-auto w-[120px]" src={project.image} />
       </div>
     )
   }
   return (
-    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 via-purple-500/10 to-transparent">
-      <span className="text-5xl font-bold text-white/10">{project.title.slice(0, 2).toUpperCase()}</span>
+    <div className="flex h-full w-full items-center justify-center bg-muted">
+      <span className="text-5xl font-bold text-foreground/10">{project.title.slice(0, 2).toUpperCase()}</span>
     </div>
   )
 }
@@ -164,14 +187,14 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-2xl hover:shadow-black/40"
+      className="group flex flex-col overflow-hidden rounded-3xl border border-border bg-card transition-shadow hover:shadow-xl hover:shadow-black/[0.06]"
     >
-      <div className="h-56 w-full overflow-hidden">
+      <div className="h-60 w-full overflow-hidden">
         <ProjectMedia project={project} />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div>
-          <h3 className="font-semibold">{project.title}</h3>
+          <h3 className="text-lg font-semibold">{project.title}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{project.tagline}</p>
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -288,23 +311,23 @@ export function Projects() {
   )
 
   return (
-    <section id="projects" className="relative py-28">
+    <section id="projects" className="relative scroll-mt-14 py-28">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 max-w-2xl"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 max-w-2xl mx-auto text-center"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Featured Work</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Products shipped end to end.</h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">Products shipped end to end.</h2>
+          <p className="mt-4 text-xl leading-relaxed text-muted-foreground">
             {projects.length} real apps and platforms built and shipped, from architecture to release, all live in production.
           </p>
         </motion.div>
 
-        <div className="mb-10 flex flex-wrap gap-2">
+        <div className="mb-10 flex flex-wrap justify-center gap-2">
           {["All", ...projectCategories].map((c) => (
             <button
               key={c}
@@ -312,7 +335,7 @@ export function Projects() {
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 filter === c
                   ? "bg-foreground text-background"
-                  : "border border-muted-foreground/25 text-muted-foreground hover:text-foreground"
+                  : "border border-border text-muted-foreground hover:text-foreground"
               }`}
             >
               {c}

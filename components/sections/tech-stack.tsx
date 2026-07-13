@@ -21,8 +21,8 @@ function TechCard({ item, index }: { item: TechItem; index: number }) {
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.4, delay: index * 0.04 }}
-      className="group rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-all hover:-translate-y-1 hover:border-primary/30"
+      transition={{ duration: 0.5, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+      className="group rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1"
     >
       <TooltipProvider delayDuration={150}>
         <Tooltip>
@@ -54,7 +54,7 @@ function TechCard({ item, index }: { item: TechItem; index: number }) {
             whileInView={{ width: `${proficiency.value}%` }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: index * 0.04 + 0.2, ease: "easeOut" }}
-            className="h-full rounded-full bg-gradient-to-r from-primary to-sky-400"
+            className="h-full rounded-full bg-primary"
           />
         </div>
       </div>
@@ -64,22 +64,22 @@ function TechCard({ item, index }: { item: TechItem; index: number }) {
 
 export function TechStack() {
   return (
-    <section id="stack" className="relative py-28">
+    <section id="stack" className="relative scroll-mt-14 py-28">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 max-w-2xl"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 max-w-2xl mx-auto text-center"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Technical Stack</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Tools I reach for every day.</h2>
+          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">Tools I reach for every day.</h2>
         </motion.div>
 
         <Tabs defaultValue={stack[0].name}>
           <div className="hide-scrollbar mb-8 overflow-x-auto">
-            <TabsList className="h-auto w-max gap-1 bg-white/[0.03] p-1.5">
+            <TabsList className="h-auto w-max gap-1 bg-muted p-1.5">
               {stack.map((category) => (
                 <TabsTrigger key={category.name} value={category.name} className="px-3.5 py-1.5 text-xs">
                   {category.name}

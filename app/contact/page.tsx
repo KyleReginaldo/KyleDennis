@@ -76,7 +76,7 @@ export default function ContactPage() {
           <span className="text-xs font-medium text-emerald-500">Available for work</span>
         </div>
         <div className="space-y-3">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{"Let's build something."}</h1>
+          <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl">{"Let's build something."}</h1>
           <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
             Open to freelance projects, full-time roles, and collaborations. If you have an idea or an
             opportunity, I would love to hear about it.
@@ -108,8 +108,8 @@ export default function ContactPage() {
             </button>
           </div>
         ) : (
-          <form action={action} className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
-            <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+          <form action={action} className="overflow-hidden rounded-3xl border border-border bg-card">
+            <div className="grid grid-cols-1 divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
               <div className="flex flex-col gap-1 px-4 py-3.5">
                 <label htmlFor="name" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
                   Your name
@@ -140,7 +140,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-1 border-t border-white/10 px-4 py-3.5">
+            <div className="flex flex-col gap-1 border-t border-border px-4 py-3.5">
               <label htmlFor="message" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
                 Message
               </label>
@@ -155,7 +155,7 @@ export default function ContactPage() {
               />
             </div>
 
-            <div className="flex items-center justify-between border-t border-white/10 px-4 py-3">
+            <div className="flex items-center justify-between border-t border-border px-4 py-3">
               {state.status === "error" ? (
                 <p className="text-xs text-red-400">{state.message}</p>
               ) : (
@@ -191,7 +191,7 @@ export default function ContactPage() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3.5 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-colors hover:border-primary/30"
+              className="group flex items-center gap-3.5 rounded-2xl border border-border bg-card px-4 py-3.5 transition-colors hover:border-foreground/20"
             >
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/60">
                 {s.icon}
@@ -206,7 +206,7 @@ export default function ContactPage() {
         </div>
       </Reveal>
 
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/10 pt-6 text-xs text-muted-foreground/60">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border pt-6 text-xs text-muted-foreground/60">
         <span className="flex items-center gap-1.5">
           <MapPin className="h-3.5 w-3.5" />
           Cavite, Philippines

@@ -6,21 +6,21 @@ import { motion } from "motion/react"
 
 export function ExperienceTimeline() {
   return (
-    <section id="experience" className="relative py-28">
+    <section id="experience" className="relative scroll-mt-14 py-28">
       <div className="mx-auto max-w-4xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 max-w-2xl"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 max-w-2xl mx-auto text-center"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Experience</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Where I&apos;ve shipped.</h2>
+          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">Where I&apos;ve shipped.</h2>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-6 top-2 bottom-2 w-px bg-gradient-to-b from-primary/50 via-muted-foreground/20 to-transparent" />
+          <div className="absolute left-6 top-2 bottom-2 w-px bg-border" />
 
           <div className="flex flex-col gap-10">
             {experience.map((entry, i) => (
@@ -29,10 +29,10 @@ export function ExperienceTimeline() {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-start gap-6"
               >
-                <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-background">
+                <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-card">
                   {entry.logo ? (
                     <img src={entry.logo} alt={`${entry.company} logo`} className="h-full w-full object-contain" />
                   ) : (

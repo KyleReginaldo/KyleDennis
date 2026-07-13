@@ -1,7 +1,6 @@
 import { DockNav } from "@/components/navigation/dock-nav"
-import { ChatFab } from "@/components/ui/chat-fab"
+import { SiteNav } from "@/components/navigation/site-nav"
 import { CursorGlow } from "@/components/ui/cursor-glow"
-import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata, Viewport } from "next"
 import type React from "react"
@@ -79,11 +78,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#111111" },
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-  ],
-  colorScheme: "dark light",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 }
 
 const personJsonLd = {
@@ -121,7 +117,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <script
           type="application/ld+json"
@@ -132,9 +128,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         <MantineProvider>
           <CursorGlow />
-          <div className="fixed right-4 top-4 z-50 sm:right-6 sm:top-6">
-            <ThemeToggle />
-          </div>
+          <SiteNav />
           <div className="relative flex min-h-screen flex-col">
             <main className="flex-1">
               <Suspense>{children}</Suspense>
@@ -145,7 +139,6 @@ export default function RootLayout({
               <DockNav />
             </div>
           </div>
-          <ChatFab />
         </MantineProvider>
       </body>
     </html>

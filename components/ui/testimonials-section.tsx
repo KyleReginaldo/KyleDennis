@@ -8,17 +8,17 @@ const CLOSE_QUOTE = "”"
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="relative py-28">
+    <section id="testimonials" className="relative scroll-mt-14 py-28">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 max-w-2xl"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-14 max-w-2xl mx-auto text-center"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Kind Words</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
             Feedback from people I&apos;ve worked with.
           </h2>
         </motion.div>
@@ -30,12 +30,12 @@ export function TestimonialsSection() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-7"
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="relative overflow-hidden rounded-3xl border border-border bg-card p-7"
             >
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute right-4 top-2 select-none font-serif text-7xl leading-none text-white/[0.06]"
+                className="pointer-events-none absolute right-4 top-2 select-none font-serif text-7xl leading-none text-foreground/[0.06]"
               >
                 {OPEN_QUOTE}
               </span>
@@ -47,7 +47,7 @@ export function TestimonialsSection() {
               </p>
 
               <div className="relative mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/30 to-purple-500/30 text-xs font-semibold">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-semibold">
                   {t.initials}
                 </div>
                 <div>

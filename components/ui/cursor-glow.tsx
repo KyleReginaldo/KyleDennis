@@ -56,7 +56,7 @@ export function CursorGlow() {
     <div
       ref={glowRef}
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 opacity-0 blur-[110px] transition-opacity duration-300 ease-out"
+      className="pointer-events-none fixed left-0 top-0 -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.06] opacity-0 blur-[120px] transition-opacity duration-300 ease-out"
     />
   )
 }

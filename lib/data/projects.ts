@@ -13,6 +13,8 @@ export type Project = {
   tagline: string
   description: string
   image?: string
+  logo?: string
+  accent?: string
   categories: string[]
   problem: string
   responsibilities: string[]
@@ -66,6 +68,8 @@ export const projects: Project[] = [
     description:
       "A Flutter app that helps casual football players find matches and reserve pitches without juggling group chats and phone calls.",
     image: "/assets/mockup/celebreak.png",
+    logo: "/celebreak-logo.webp",
+    accent: "#0f3d2e",
     categories: ["Flutter", "Full Stack"],
     problem:
       "Casual football players needed an easy way to find matches and reserve pitches without relying on group chats and manual coordination.",
@@ -93,6 +97,8 @@ export const projects: Project[] = [
     description:
       "A marketplace app connecting homeowners with vetted service providers, with flexible scheduling and realtime booking updates.",
     image: "/assets/mockup/servebeez.png",
+    logo: "/servebeez-logo.webp",
+    accent: "#2f6fed",
     categories: ["Flutter", "Full Stack"],
     problem:
       "Homeowners needed an easy way to book vetted service providers, and providers needed flexible scheduling and dispatch tooling.",
