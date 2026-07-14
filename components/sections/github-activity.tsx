@@ -1,7 +1,7 @@
 "use client"
 
+import { BookMarked, GitFork, Star } from "lucide-react"
 import { motion } from "motion/react"
-import { BookMarked, Star, GitFork } from "lucide-react"
 import { useEffect, useState } from "react"
 
 type Contribution = { date: string; count: number; level: 0 | 1 | 2 | 3 | 4 }

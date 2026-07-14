@@ -1,11 +1,27 @@
-import { DockNav } from "@/components/navigation/dock-nav"
 import { SiteNav } from "@/components/navigation/site-nav"
 import { CursorGlow } from "@/components/ui/cursor-glow"
+import { KDLoader } from "@/components/ui/kd-loader"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata, Viewport } from "next"
+import { Bricolage_Grotesque } from "next/font/google"
+import localFont from "next/font/local"
 import type React from "react"
 import { Suspense } from "react"
 import "./globals.css"
+
+const fugazOne = localFont({
+  src: "../public/fonts/Fugaz_One/FugazOne-Regular.ttf",
+  weight: "400",
+  style: "normal",
+  variable: "--font-fugaz-one",
+  display: "swap",
+})
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage-grotesque",
+  display: "swap",
+})
 
 const SITE_URL = "https://kyle-reginaldo.vercel.app"
 const SITE_NAME = "Kyle Reginaldo, Product Engineer"
@@ -125,8 +141,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className={`font-sans antialiased`}>
+      <body className={`${fugazOne.variable} ${bricolageGrotesque.variable} font-sans antialiased`}>
         <MantineProvider>
+          <KDLoader />
           <CursorGlow />
           <SiteNav />
           <div className="relative flex min-h-screen flex-col">
@@ -134,11 +151,7 @@ export default function RootLayout({
               <Suspense>{children}</Suspense>
             </main>
           </div>
-          <div className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-6">
-            <div className="pointer-events-auto">
-              <DockNav />
-            </div>
-          </div>
+         
         </MantineProvider>
       </body>
     </html>

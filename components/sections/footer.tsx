@@ -41,8 +41,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
-            <a href="#home" className="text-[15px] font-semibold tracking-tight">
-              Kyle Reginaldo<span className="text-primary">.</span>
+            <a href="#home" className="font-logo text-xl tracking-tight" aria-label="Kyle Reginaldo">
+              KD<span className="text-primary">.</span>
             </a>
             <p className="mt-3 max-w-[22ch] text-[13px] leading-relaxed text-muted-foreground">
               Product engineer building complete digital products, end to end.

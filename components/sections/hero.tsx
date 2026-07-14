@@ -56,10 +56,11 @@ export function Hero() {
           className="flex flex-wrap items-center justify-center gap-6 pt-2"
         >
           <a
-            href="#projects"
+            href="/kylereginaldo.pdf"
+            download
             className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-85"
           >
-            View Projects
+            Download CV
           </a>
           <a
             href="#contact"

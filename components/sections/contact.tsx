@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 import { motion } from "motion/react"
 import Link from "next/link"
 
@@ -44,14 +44,6 @@ export function Contact() {
               Say Hello
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <a
-              href="/kylereginaldo.pdf"
-              download
-              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-muted"
-            >
-              <Download className="h-4 w-4" />
-              Download Resume
-            </a>
           </div>
         </motion.div>
 
