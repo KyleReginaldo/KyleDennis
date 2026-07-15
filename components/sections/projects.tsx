@@ -35,7 +35,7 @@ function ProjectIcon({ project, className }: { project: Project; className?: str
   return (
     <div
       className={cn(
-        "flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-muted p-2",
+        "flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-muted p-2",
         className
       )}
     >
@@ -200,7 +200,7 @@ function ProjectLinks({ project, compact, light }: { project: Project; compact?:
   )
 }
 
-function ProjectRow({ rank, project, onOpen }: { rank: number; project: Project; onOpen: () => void }) {
+function ProjectRow({ project, onOpen }: { project: Project; onOpen: () => void }) {
   return (
     <motion.div
       layout
@@ -219,23 +219,14 @@ function ProjectRow({ rank, project, onOpen }: { rank: number; project: Project;
       }}
       className="group flex cursor-pointer items-center gap-4 px-4 py-4 transition-colors hover:bg-muted/50 sm:gap-5 sm:px-6"
     >
-      <span className="w-5 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground/40">
-        {rank}
-      </span>
-
       <ProjectIcon project={project} className="h-14 w-14 sm:h-16 sm:w-16" />
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide">
-          {project.featured && (
-            <>
-              <span className="text-muted-foreground/30">•</span>
-              <span className="inline-flex items-center gap-1 text-muted-foreground/60">
-                <Rocket className="h-3 w-3" /> Flagship
-              </span>
-            </>
-          )}
-        </div>
+        {project.featured && (
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/60">
+            <Rocket className="h-3 w-3" /> Flagship
+          </span>
+        )}
         <h3 className="truncate text-base font-semibold sm:text-lg">{project.title}</h3>
         <p className="truncate text-sm text-muted-foreground">{project.tagline}</p>
       </div>
@@ -517,15 +508,10 @@ export function Projects() {
           ))}
         </div>
 
-        <motion.div layout className="divide-y divide-border overflow-hidden rounded-3xl border border-border">
+        <motion.div layout className="divide-y divide-border">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project, i) => (
-              <ProjectRow
-                key={project.id}
-                rank={i + 1}
-                project={project}
-                onOpen={() => setSelected(project)}
-              />
+            {filtered.map((project) => (
+              <ProjectRow key={project.id} project={project} onOpen={() => setSelected(project)} />
             ))}
           </AnimatePresence>
         </motion.div>
