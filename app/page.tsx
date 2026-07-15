@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Projects />
-      <About />
+      <Projects />      
       <ExperienceTimeline />
+      <About />
       <TechStack />
       <Services />
       <Process />

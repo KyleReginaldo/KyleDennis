@@ -20,11 +20,11 @@ Notable Projects (include mockup image and links when relevant):
   - App Store: https://apps.apple.com/ph/app/mobile-medical-lab/id6523433058
   - Website: https://www.mobilemedicallab.com
 - Celebreak — Flutter + NestJS sports booking
-  - Mockup: /assets/mockup/celebreak.png
+  - Mockup: /assets/mockup/celebreak.webp
   - Play Store: https://play.google.com/store/apps/details?id=com.lewisblack.celebreakOne
   - App Store: https://apps.apple.com/ph/app/celebreak/id1244710855
 - Servebeez — Flutter + Supabase + AWS
-  - Mockup: /assets/mockup/servebeez.png
+  - Mockup: /assets/mockup/servebeez.webp
   - Play Store: https://play.google.com/store/apps/details?id=com.servebeez.customer
   - App Store: https://apps.apple.com/ph/app/servebeez-home-services/id6747769004
 - PawsConnect — Next.js + Supabase + Flutter

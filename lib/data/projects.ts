@@ -7,6 +7,8 @@ export type ProjectLinks = {
   download?: string
 }
 
+export type ScreenshotSlide = { src: string; eyebrow: string; headline: string }
+
 export type Project = {
   id: string
   title: string
@@ -15,6 +17,12 @@ export type Project = {
   image?: string
   logo?: string
   accent?: string
+  featured?: boolean
+  video?: string
+  screenshots?: {
+    web?: ScreenshotSlide[]
+    app?: string[]
+  }
   categories: string[]
   problem: string
   responsibilities: string[]
@@ -32,7 +40,41 @@ export const projects: Project[] = [
     tagline: "Mobile lab bookings, simplified for patients and technicians.",
     description:
       "A patient-first platform for booking at-home lab tests, with a Flutter app, a Next.js booking website, and a NestJS API tying it all together.",
-    image: "/assets/mockup/mobilemedicallab.png",
+    image: "/assets/mockup/mobilemedicallab2.png",
+    logo: "/assets/logos/mobilemedicallab-logo.webp",
+    featured: true,
+    video: "dnsmtvF6HzE",
+    screenshots: {
+      web: [
+        {
+          src: "/assets/mockup/mobilemedicallab2.png",
+          eyebrow: "Book in minutes",
+          headline: "Mobile lab testing, right at home",
+        },
+        {
+          src: "/assets/mockup/mobilemedicallab3.png",
+          eyebrow: "Pick your test",
+          headline: "Every collection type, one simple menu",
+        },
+        {
+          src: "/assets/mockup/mobilemedicallab4.png",
+          eyebrow: "Trusted since 2008",
+          headline: "Meet the certified team behind every visit",
+        },
+        {
+          src: "/assets/mockup/mobilemedicallab5.png",
+          eyebrow: "Three easy steps",
+          headline: "Book, get visited, get results — that's it",
+        },
+      ],
+      app: [
+        "/assets/mockup/mobilemedicallab6.webp",
+        "/assets/mockup/mobilemedicallab7.webp",
+        "/assets/mockup/mobilemedicallab8.webp",
+        "/assets/mockup/mobilemedicallab9.webp",
+        "/assets/mockup/mobilemedicallab10.webp",
+      ],
+    },
     categories: ["Flutter", "Full Stack", "Healthcare"],
     problem:
       "Patients needed a simple way to book at-home lab tests, and the clinic needed a reliable system to manage scheduling, results, and technician dispatch across both mobile and web.",
@@ -67,9 +109,19 @@ export const projects: Project[] = [
     tagline: "Match with local football players and book pitches in minutes.",
     description:
       "A Flutter app that helps casual football players find matches and reserve pitches without juggling group chats and phone calls.",
-    image: "/assets/mockup/celebreak.png",
-    logo: "/celebreak-logo.webp",
+    image: "/assets/mockup/celebreak.webp",
+    logo: "/assets/logos/celebreak-logo.webp",
     accent: "#0f3d2e",
+    video: "Xvl9YcHm-co",
+    screenshots: {
+      app: [
+        "/assets/mockup/celebreak2.webp",
+        "/assets/mockup/celebreak3.webp",
+        "/assets/mockup/celebreak4.webp",
+        "/assets/mockup/celebreak5.webp",
+        "/assets/mockup/celebreak6.webp",
+      ],
+    },
     categories: ["Flutter", "Full Stack"],
     problem:
       "Casual football players needed an easy way to find matches and reserve pitches without relying on group chats and manual coordination.",
@@ -96,9 +148,19 @@ export const projects: Project[] = [
     tagline: "On-demand home services, from booking to provider dispatch.",
     description:
       "A marketplace app connecting homeowners with vetted service providers, with flexible scheduling and realtime booking updates.",
-    image: "/assets/mockup/servebeez.png",
-    logo: "/servebeez-logo.webp",
+    image: "/assets/mockup/servebeez.webp",
+    logo: "/assets/logos/servebeez-logo.webp",
     accent: "#2f6fed",
+    video: "qu1ligL38gc",
+    screenshots: {
+      app: [
+        "/assets/mockup/servebeez2.webp",
+        "/assets/mockup/servebeez3.webp",
+        "/assets/mockup/servebeez4.webp",
+        "/assets/mockup/servebeez5.webp",
+        "/assets/mockup/servebeez6.webp",
+      ],
+    },
     categories: ["Flutter", "Full Stack"],
     problem:
       "Homeowners needed an easy way to book vetted service providers, and providers needed flexible scheduling and dispatch tooling.",
@@ -127,6 +189,32 @@ export const projects: Project[] = [
     description:
       "A platform bringing pet adoption, shelter fundraising, and community events into one place, on both web and mobile.",
     image: "/assets/mockup/pawsconnect.png",
+    logo: "/assets/logos/pawsconnect-logo.png",
+    accent: "#f97316",
+    screenshots: {
+      web: [
+        {
+          src: "/assets/mockup/pawsconnect2.png",
+          eyebrow: "Find a companion",
+          headline: "Browse adoptable pets and fundraisers",
+        },
+        {
+          src: "/assets/mockup/pawsconnect3.png",
+          eyebrow: "Meet the animals",
+          headline: "See every shelter pet up for adoption",
+        },
+        {
+          src: "/assets/mockup/pawsconnect4.png",
+          eyebrow: "Our Mission",
+          headline: "Connecting animal lovers with shelters",
+        },
+        {
+          src: "/assets/mockup/pawsconnect5.png",
+          eyebrow: "Our Vision",
+          headline: "A world where every pet finds a loving home",
+        },
+      ],
+    },
     categories: ["Flutter", "Full Stack"],
     problem:
       "Shelters and adopters needed one place to browse adoptable pets, run fundraisers, and coordinate community events.",
@@ -157,6 +245,32 @@ export const projects: Project[] = [
     tagline: "An e-commerce storefront built for a local vape shop.",
     description:
       "A retail storefront with product listings, cart, and checkout, built to take a local shop's sales online.",
+    logo: "/assets/logos/vapourlounge-logo.jpg",
+    accent: "#111111",
+    screenshots: {
+      web: [
+        {
+          src: "/assets/mockup/vapourlounge2.png",
+          eyebrow: "Trece Martires' #1 vape shop",
+          headline: "Premium vapes, your way",
+        },
+        {
+          src: "/assets/mockup/vapourlounge3.png",
+          eyebrow: "Age-verified access",
+          headline: "Sign in to keep browsing responsibly",
+        },
+        {
+          src: "/assets/mockup/vapourlounge4.png",
+          eyebrow: "12+ products and growing",
+          headline: "Filter by brand, price, and category",
+        },
+        {
+          src: "/assets/mockup/vapourlounge5.png",
+          eyebrow: "Every detail, up front",
+          headline: "Flavor, nicotine, and stock — all on one page",
+        },
+      ],
+    },
     categories: ["Web", "E-Commerce", "UI/UX"],
     problem: "A local vape shop needed an online storefront to sell products beyond walk-in traffic.",
     responsibilities: [
@@ -174,6 +288,32 @@ export const projects: Project[] = [
     title: "Sweet Hives",
     tagline: "Online ordering for a café, without a heavyweight POS.",
     description: "A lightweight ordering platform so a café's customers can browse and order coffee and snacks online.",
+    logo: "/assets/logos/brewpos-logo.jpg",
+    accent: "#8b5e3c",
+    screenshots: {
+      web: [
+        {
+          src: "/assets/mockup/brewpos2.png",
+          eyebrow: "Now you can feel the energy",
+          headline: "Start your day with a great brew",
+        },
+        {
+          src: "/assets/mockup/brewpos3.png",
+          eyebrow: "42+ menu items",
+          headline: "Order your favorite drink in a tap",
+        },
+        {
+          src: "/assets/mockup/brewpos4.png",
+          eyebrow: "4.9 average rating",
+          headline: "Loved by regulars, one cup at a time",
+        },
+        {
+          src: "/assets/mockup/brewpos5.png",
+          eyebrow: "Visit us",
+          headline: "Find the cafe and get directions instantly",
+        },
+      ],
+    },
     categories: ["Web", "UI/UX"],
     problem: "A café wanted online ordering for coffee and snacks without adopting a heavyweight POS system.",
     responsibilities: ["Built the ordering platform and menu browsing UI"],
@@ -189,6 +329,32 @@ export const projects: Project[] = [
     tagline: "Barangay document requests, moved online.",
     description:
       "A document processing portal exclusive to Pasong Kawayan 2 residents, replacing in-person queues with online requests.",
+    logo: "/assets/logos/pasongkawayan-logo.png",
+    accent: "#166534",
+    screenshots: {
+      web: [
+        {
+          src: "/assets/mockup/pasongkawayan2.png",
+          eyebrow: "Official e-service portal",
+          headline: "Barangay services at your convenience",
+        },
+        {
+          src: "/assets/mockup/pasongkawayan3.png",
+          eyebrow: "Secure sign-in",
+          headline: "One account for every document request",
+        },
+        {
+          src: "/assets/mockup/pasongkawayan4.png",
+          eyebrow: "6 document types",
+          headline: "Request clearances, IDs, and certificates online",
+        },
+        {
+          src: "/assets/mockup/pasongkawayan5.png",
+          eyebrow: "Got questions?",
+          headline: "Answers to what residents ask most",
+        },
+      ],
+    },
     categories: ["Web", "Gov Tech"],
     problem: "Local residents needed a way to request barangay documents online instead of queuing in person.",
     responsibilities: ["Built the document request portal exclusive to Pasong Kawayan 2 residents"],

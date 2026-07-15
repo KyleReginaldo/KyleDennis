@@ -18,7 +18,25 @@
       "Bash(sed -i.bak 's/await page.waitForTimeout\\(1150\\).*/await page.waitForTimeout\\(1800\\)/' measure_letters.mjs)",
       "Bash(node measure_letters.mjs)",
       "Bash(grep -o \"RESEND_API_KEY=.\\\\{0,8\\\\}\" .env.local)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/contact --max-time 3)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/contact --max-time 3)",
+      "Bash(npx --no-install playwright install --dry-run chromium)",
+      "Bash(NODE_PATH=\"/Users/koyaemer/.npm/_npx/705bc6b22212b352/node_modules\" node verify-projects.mjs)",
+      "Bash(ln -s /Users/koyaemer/.npm/_npx/705bc6b22212b352/node_modules/playwright /private/tmp/claude-501/-Users-koyaemer-Development-KyleDennis/56057976-d736-4f02-b8ea-4de7624bcaac/scratchpad/node_modules/playwright)",
+      "Bash(ln -s /Users/koyaemer/.npm/_npx/705bc6b22212b352/node_modules/playwright-core /private/tmp/claude-501/-Users-koyaemer-Development-KyleDennis/56057976-d736-4f02-b8ea-4de7624bcaac/scratchpad/node_modules/playwright-core)",
+      "Bash(node verify-projects.mjs)",
+      "Bash(node verify-screenshots.mjs)",
+      "Bash(xargs kill)",
+      "Bash(node diagnose.mjs)",
+      "Bash(grep -n \"Case Study\\\\|ProjectLinks\\\\|ShippedSurfaces\\\\|onFilter\\\\|layoutId=\\\\`project-media\" /Users/koyaemer/Development/KyleDennis/components/sections/projects.tsx)",
+      "Bash(node verify-wheel.mjs)",
+      "Bash(node verify-final.mjs)",
+      "Bash(node debug-hero2.mjs)",
+      "Bash(node verify-final2.mjs)",
+      "Bash(node verify-visual.mjs)",
+      "Bash(curl -sI \"https://thesvg.org/icons/app-store/default.svg\")",
+      "Bash(curl -sI \"https://thesvg.org/icons/google-play/default.svg\")",
+      "Bash(curl -sI \"https://thesvg.org/icons/android/default.svg\")",
+      "Bash(curl -sI \"https://thesvg.org/icons/ios/default.svg\")"
     ],
     "additionalDirectories": [
       "/Users/koyaemer/Development/KyleDennis/public/assets/stacks"

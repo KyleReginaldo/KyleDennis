@@ -44,10 +44,21 @@ export function ExperienceTimeline() {
                 <div className="flex-1 pt-0.5">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <h3 className="font-semibold">{entry.company}</h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-semibold">{entry.company}</h3>
+                        {entry.current && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                            Current
+                          </span>
+                        )}
+                      </div>
                       <p className="text-sm text-primary">{entry.role}</p>
                     </div>
-                    <span className="text-xs font-medium text-muted-foreground/70">{entry.period}</span>
+                    <div className="text-right">
+                      <span className="block text-xs font-medium text-muted-foreground/70">{entry.period}</span>
+                      <span className="block text-[11px] text-muted-foreground/50">{entry.location}</span>
+                    </div>
                   </div>
                   <ul className="mt-3 space-y-1.5">
                     {entry.responsibilities.map((r) => (

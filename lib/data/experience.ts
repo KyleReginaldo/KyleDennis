@@ -1,7 +1,9 @@
 export type ExperienceEntry = {
   company: string
   role: string
+  location: string
   period: string
+  current?: boolean
   logo?: string
   responsibilities: string[]
   tech: string[]
@@ -9,34 +11,57 @@ export type ExperienceEntry = {
 
 export const experience: ExperienceEntry[] = [
   {
-    company: "Mobile Medical Lab",
+    company: "LabsToGo",
     role: "Full Stack Developer",
+    location: "Virginia, USA",
     period: "May 2024 - Present",
-    logo: "/mobilemedicallab-logo.webp",
+    current: true,
+    logo: "/assets/logos/mobilemedicallab-logo.webp",
     responsibilities: [
-      "Developed and maintained the mobile app enabling users to conveniently book on-demand medical services",
-      "Built a seamless booking experience across iOS and Android, plus the companion website with Next.js",
-      "Collaborated with product managers and backend developers to optimize performance and user experience",
+      "Developed Flutter mobile apps for iOS and Android for on-demand medical lab bookings",
+      "Built responsive booking web apps with Next.js across desktop and mobile",
+      "Designed and maintained REST APIs with NestJS powering both clients",
+      "Integrated Firebase Auth, Stripe, Twilio, and SendGrid for auth, payments, SMS, and email",
+      "Set up CI/CD with Codemagic and published to the App Store and Google Play",
     ],
-    tech: ["Flutter", "Next.js", "NestJS", "Supabase"],
+    tech: ["Flutter", "Next.js", "NestJS", "Firebase", "Stripe", "Twilio", "Codemagic"],
+  },
+  {
+    company: "Servebeez",
+    role: "Web Developer Intern",
+    location: "Cavite, PH",
+    period: "Feb 2026 - May 2026",
+    logo: "/assets/logos/servebeez-logo.webp",
+    responsibilities: [
+      "Developed responsive web applications using modern JavaScript frameworks",
+      "Improved website SEO through technical and on-page optimization",
+      "Integrated Google Analytics and ad scripts for campaign tracking and conversions",
+      "Optimized performance by reducing load times and improving frontend-backend communication",
+    ],
+    tech: ["JavaScript", "SEO", "Google Analytics"],
   },
   {
     company: "Celebreak",
     role: "Flutter Developer",
+    location: "Barcelona, Spain",
     period: "Nov 2024 - Feb 2025",
-    logo: "/celebreak-logo.webp",
+    logo: "/assets/logos/celebreak-logo.webp",
     responsibilities: [
-      "Contributed to TownSquare, an application fostering community interaction among users",
+      "Contributed to TownSquare, a Flutter app focused on community engagement",
+      "Built and maintained reusable UI components with responsive design principles",
+      "Improved app performance and UI responsiveness across Android and iOS",
     ],
     tech: ["Flutter"],
   },
   {
     company: "Avyan Global",
     role: "Flutter Developer",
+    location: "Nueva Ecija, PH",
     period: "Jun 2022 - Mar 2024",
     responsibilities: [
-      "Developed Alt Switch, a blockchain-based mobile application",
-      "Gained hands-on experience with RESTful APIs and decentralized technologies",
+      "Developed blockchain-enabled Flutter apps integrating decentralized tech and REST APIs",
+      "Implemented efficient state management for real-time blockchain transactions",
+      "Designed and integrated REST APIs connecting mobile apps with backend services",
     ],
     tech: ["Flutter", "REST API"],
   },
