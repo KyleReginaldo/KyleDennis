@@ -83,6 +83,7 @@ export const stack: TechCategory[] = [
       { name: "Figma", years: "4 years", description: "Collaborative interface design tool for creating user interfaces and prototypes", icon: img("figma") },
       { name: "VS Code", years: "4 years", description: "Lightweight but powerful source code editor with extensive extension support", icon: img("visual-studio-code") },
       { name: "Postman", years: "4 years", description: "API development and testing tool for building and debugging REST APIs", icon: img("postman") },
+      {name: 'Claude Code', years: '1 year', description: 'AI-powered code assistant for generating and understanding code snippets', icon: img('claude-code')},
     ],
   },
 ]
