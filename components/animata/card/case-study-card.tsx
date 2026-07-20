@@ -28,7 +28,7 @@ const ContentCard: React.FC<CaseStudyCardProps> = ({ title, category, logo, acce
 
   return (
     <div
-      className="relative flex h-full flex-col items-start justify-between overflow-hidden rounded-lg p-4"
+      className="relative flex h-full flex-col items-start justify-between overflow-hidden rounded-lg p-2.5 sm:p-4"
       style={{ background: `linear-gradient(155deg, ${base} 0%, ${dark} 100%)` }}
     >
       <div
@@ -41,16 +41,16 @@ const ContentCard: React.FC<CaseStudyCardProps> = ({ title, category, logo, acce
       />
 
       <div className="relative z-10">
-        {category && <div className="text-xs font-medium text-white/70">{category}</div>}
+        {category && <div className="text-[10px] font-medium text-white/70 sm:text-xs">{category}</div>}
 
         {title && (
-          <div className="mr-2 text-lg font-bold leading-tight tracking-wide text-white">
+          <div className="mr-2 text-xs font-bold leading-tight tracking-wide text-white sm:text-base md:text-lg">
             {title}
           </div>
         )}
       </div>
       {logo && (
-        <div className="z-10 flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 p-1.5 shadow-sm">
+        <div className="z-10 flex h-6 w-6 items-center justify-center rounded-md bg-white/90 p-1 shadow-sm sm:h-9 sm:w-9 sm:rounded-lg sm:p-1.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={logo} alt={title} className="h-full w-full object-contain" />
         </div>
@@ -73,31 +73,32 @@ const SimpleImageCard: React.FC<CaseStudyCardProps> = ({ image }) => {
   );
 };
 
-const HoverRevealSlip = ({ show }: { show: React.ReactNode }) => {
+const HoverRevealSlip = ({ show, previewImage }: { show: React.ReactNode; previewImage?: string }) => {
   const common = "absolute flex w-full h-full [backface-visibility:hidden]";
 
   return (
-    <div className={cn("group/study relative h-60 w-52 perspective-[1000px]")}>
+    <div className={cn("group/study relative aspect-[13/15] w-full perspective-[1000px]")}>
       {/* Back cover - static */}
-      <div className={cn("absolute inset-0 h-full w-48 rounded-lg bg-gray-50 shadow-md")}></div>
+      <div className={cn("absolute inset-0 h-full w-[92%] rounded-lg bg-gray-50 shadow-md")}></div>
 
       {/* Card container with slight book opening effect on hover */}
       <div
         className={cn(
-          "relative z-50 h-full w-48 origin-left transition-transform duration-500 ease-out transform-3d group-hover/study:transform-[rotateY(-30deg)]",
+          "relative z-50 h-full w-[92%] origin-left transition-transform duration-500 ease-out transform-3d group-hover/study:transform-[rotateY(-30deg)]",
         )}
       >
         {/* Front side of the card */}
         <div className={cn("h-full w-full rounded-lg bg-white shadow-md", common)}>{show}</div>
       </div>
 
-      {/* Sliding link/tab coming out from behind */}
+      {/* Sliding link/tab coming out from behind - previews the project when revealed */}
       <div
         className={cn(
-          "z-1 absolute bottom-0 right-0 flex h-48 w-14 -translate-x-10 transform items-start justify-start rounded-r-lg bg-green-600 pl-2 pt-2 text-xs font-bold text-white transition-transform duration-300 ease-in-out backface-hidden group-hover/study:translate-x-0 group-hover/study:rotate-[5deg]",
+          "z-1 absolute bottom-0 right-0 flex h-[80%] w-[27%] -translate-x-[70%] transform items-start justify-start overflow-hidden rounded-r-lg bg-black pl-2 pt-2 text-xs font-bold text-white transition-transform duration-300 ease-in-out backface-hidden group-hover/study:translate-x-0 group-hover/study:rotate-[5deg]",
         )}
+        
       >
-        <div className="-rotate-90 whitespace-nowrap pb-16 pr-9">VIEW DETAILS</div>
+        <div className="-rotate-90 whitespace-nowrap pb-16 pr-9 text-[10px] sm:text-xs">VIEW DETAILS</div>
       </div>
     </div>
   );
@@ -114,9 +115,10 @@ export default function CaseStudyCard({
   type,
 }: CaseStudyCardProps) {
   return (
-    <div className="flex gap-8">
-      <a href={link} className="block">
+    <div className="flex w-full">
+      <a href={link} className="block w-full">
         <HoverRevealSlip
+          previewImage={image}
           show={
             type === "content" ? (
               <ContentCard title={title} category={category} logo={logo} accent={accent} />

@@ -18,7 +18,7 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative scroll-mt-14 py-28">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 2xl:max-w-[1300px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,10 @@ export function Projects() {
           ))}
         </div>
 
-        <motion.div layout className="flex flex-wrap justify-center gap-x-6 gap-y-10">
+        <motion.div
+          layout
+          className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+        >
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <motion.div
@@ -66,6 +69,7 @@ export function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="mx-auto w-full max-w-[200px]"
                 onClick={(e) => {
                   if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
                   e.preventDefault()
@@ -78,6 +82,7 @@ export function Projects() {
                   category={project.title}
                   accent={project.accent}
                   logo={project.logo}
+                  image={project.image ?? project.screenshots?.web?.[0]?.src ?? project.screenshots?.app?.[0]}
                   link={`/projects/${project.id}`}
                 />
               </motion.div>
