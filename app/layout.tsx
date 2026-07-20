@@ -1,4 +1,6 @@
+import { BottomNav } from "@/components/navigation/bottom-nav"
 import { SiteNav } from "@/components/navigation/site-nav"
+import { Footer } from "@/components/sections/footer"
 import { CursorGlow } from "@/components/ui/cursor-glow"
 import { KDLoader } from "@/components/ui/kd-loader"
 import { MantineProvider } from "@mantine/core"
@@ -149,10 +151,12 @@ export default function RootLayout({
           <CursorGlow />
           <SiteNav />
           <div className="relative flex min-h-screen flex-col">
-            <main className="flex-1">
+            <main className="flex-1 pb-24 md:pb-0">
               <Suspense>{children}</Suspense>
             </main>
+            <Footer />
           </div>
+          <BottomNav />
           {modal}
         </MantineProvider>
       </body>

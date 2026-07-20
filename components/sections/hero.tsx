@@ -63,7 +63,7 @@ export function Hero() {
             Download CV
           </a>
           <a
-            href="#contact"
+            href="/contact"
             className="group inline-flex items-center gap-1 text-sm font-semibold text-primary"
           >
             Contact me

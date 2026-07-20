@@ -1,15 +1,11 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { GraduationCap, Shirt, Sparkles, Users } from "lucide-react"
+import { Sparkles } from "lucide-react"
 import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react"
 import { useState, type MouseEvent } from "react"
 
 const PHOTOS = [
-  { key: "creative", label: "Creative", icon: Sparkles, src: "/kyle/images/creative.JPG" },
-  { key: "toga", label: "Toga", icon: GraduationCap, src: "/kyle/images/toga.JPG" },
-  { key: "barong", label: "Barong Tagalog", icon: Shirt, src: "/kyle/images/barong.JPG" },
-  { key: "duo", label: "Duo", icon: Users, src: "/kyle/images/duo.JPG" },
+  { key: "creative", label: "Creative", icon: Sparkles, src: "/kyle/images/creative-improved.png" },
 ]
 
 export function AboutPhotoSwitcher({ borderRevealed = false }: { borderRevealed?: boolean }) {
@@ -44,10 +40,9 @@ export function AboutPhotoSwitcher({ borderRevealed = false }: { borderRevealed?
       >
         <motion.div
           initial={{ borderColor: "rgba(0,113,227,0)" }}
-          animate={{ borderColor: borderRevealed ? "rgba(0,113,227,1)" : "rgba(0,113,227,0)" }}
           transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           style={{ rotateX: springX, rotateY: springY, transformStyle: "preserve-3d" }}
-          className="relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border-2 shadow-xl shadow-black/10"
+          className="relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border-2"
         >
           <AnimatePresence initial={false}>
             <motion.img
@@ -64,7 +59,7 @@ export function AboutPhotoSwitcher({ borderRevealed = false }: { borderRevealed?
         </motion.div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-2">
+      {/* <div className="flex flex-wrap justify-center gap-2">
         {PHOTOS.map((p, i) => (
           <button
             key={p.key}
@@ -89,7 +84,7 @@ export function AboutPhotoSwitcher({ borderRevealed = false }: { borderRevealed?
             <p.icon className="relative z-10 h-4 w-4" />
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }

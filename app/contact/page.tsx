@@ -2,6 +2,7 @@
 
 import { sendEmail, type SendEmailState } from "@/app/actions/send-email"
 import { Reveal } from "@/components/ui/reveal"
+import { TestimonialsSection } from "@/components/ui/testimonials-section"
 import { ArrowLeft, CheckCircle, Loader2, MapPin, Send } from "lucide-react"
 import Link from "next/link"
 import { useActionState } from "react"
@@ -58,7 +59,8 @@ export default function ContactPage() {
   const [state, action, pending] = useActionState(sendEmail, initialState)
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-col gap-14 px-6 py-24 pb-32">
+    <>
+      <main className="mx-auto flex w-full max-w-4xl flex-col gap-14 px-6 py-24">
       <Link
         href="/"
         className="flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -212,6 +214,8 @@ export default function ContactPage() {
           Cavite, Philippines
         </span>
       </div>
-    </main>
+      </main>
+      <TestimonialsSection />
+    </>
   )
 }

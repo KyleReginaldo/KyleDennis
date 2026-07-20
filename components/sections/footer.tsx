@@ -3,21 +3,21 @@
 import { VisitorBadge } from "@/components/ui/visitor-badge"
 import { ArrowUp, Facebook, Github, Linkedin, Mail } from "lucide-react"
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react"
+import Link from "next/link"
 import { useState } from "react"
 
 const EXPLORE_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
+  { label: "About", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "Experience", href: "/experience" },
+  { label: "Services", href: "/services" },
+  { label: "Process", href: "/services#process" },
 ]
 
 const MORE_LINKS = [
-  { label: "Tech Stack", href: "#stack" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "GitHub Activity", href: "#github" },
-  { label: "Contact", href: "#contact" },
+  { label: "Tech Stack", href: "/services#stack" },
+  { label: "Testimonials", href: "/contact#testimonials" },
+  { label: "Contact", href: "/contact" },
   { label: "Resume", href: "/kylereginaldo.pdf" },
 ]
 
@@ -37,13 +37,13 @@ export function Footer() {
   })
 
   return (
-    <footer className="relative border-t border-border bg-card/40 pt-16 pb-32 sm:pb-10">
+    <footer className="relative hidden border-t border-border bg-card/40 pt-16 pb-10 md:block">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
-            <a href="#home" className="font-logo text-xl tracking-tight" aria-label="Kyle Reginaldo">
+            <Link href="/" className="font-logo text-xl tracking-tight" aria-label="Kyle Reginaldo">
               KD<span className="text-primary">.</span>
-            </a>
+            </Link>
             <p className="mt-3 max-w-[22ch] text-[13px] leading-relaxed text-muted-foreground">
               Product engineer building complete digital products, end to end.
             </p>
@@ -56,9 +56,9 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {EXPLORE_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground">
+                  <Link href={link.href} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,9 +71,9 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {MORE_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground">
+                  <Link href={link.href} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
