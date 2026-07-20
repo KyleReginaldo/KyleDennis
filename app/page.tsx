@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Projects />      
+      <Projects />
       <ExperienceTimeline />
       <About />
       <TechStack />

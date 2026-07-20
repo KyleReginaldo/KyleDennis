@@ -87,9 +87,9 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   icons: {
-    icon: '/kyle.ico',      // primary (PNG is widely supported)
-    shortcut: '/kyle.ico',  // fallback .ico
-    apple: '/kyle.png',     // apple touch
+    icon: 'favicon.ico',      // primary (PNG is widely supported)
+    shortcut: 'favicon.ico',  // fallback .ico
+    apple: 'favicon.ico',     // apple touch
   },
 }
 
@@ -129,8 +129,10 @@ const personJsonLd = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode
+  modal: React.ReactNode
 }>) {
   return (
     <html lang="en">
@@ -151,7 +153,7 @@ export default function RootLayout({
               <Suspense>{children}</Suspense>
             </main>
           </div>
-         
+          {modal}
         </MantineProvider>
       </body>
     </html>

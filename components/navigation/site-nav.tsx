@@ -13,6 +13,39 @@ const NAV_LINKS = [
   { label: "Contact", href: "/#contact" },
 ]
 
+const underlineVariants = {
+  rest: { scaleX: 0, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] as const } },
+  hover: { scaleX: 1, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] as const } },
+}
+
+const dotVariants = {
+  rest: { opacity: 0, scale: 0, transition: { duration: 0.15 } },
+  hover: { opacity: 1, scale: 1, transition: { duration: 0.2, delay: 0.3 } },
+}
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  return (
+    <motion.div initial="rest" whileHover="hover" animate="rest" className="relative">
+      <Link
+        href={href}
+        className="relative inline-block text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        {label}
+        <motion.span
+          aria-hidden
+          variants={dotVariants}
+          className="absolute -right-2.5 top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-primary"
+        />
+        <motion.span
+          aria-hidden
+          variants={underlineVariants}
+          className="absolute -bottom-1 left-0 h-px w-full origin-left bg-foreground"
+        />
+      </Link>
+    </motion.div>
+  )
+}
+
 export function SiteNav() {
   const [open, setOpen] = useState(false)
 
@@ -34,13 +67,7 @@ export function SiteNav() {
 
           <nav className="hidden items-center gap-8 md:flex">
             {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
+              <NavLink key={link.href} href={link.href} label={link.label} />
             ))}
           </nav>
 

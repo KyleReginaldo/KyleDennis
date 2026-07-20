@@ -2,9 +2,17 @@
 
 import { Badge } from "@/components/ui/badge"
 import { experience } from "@/lib/data/experience"
-import { motion } from "motion/react"
+import { motion, useScroll, useSpring } from "motion/react"
+import { useRef } from "react"
 
 export function ExperienceTimeline() {
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start end", "end start"],
+  })
+  const lineProgress = useSpring(scrollYProgress, { stiffness: 300, damping: 40 })
+
   return (
     <section id="experience" className="relative scroll-mt-14 py-28">
       <div className="mx-auto max-w-4xl px-6">
@@ -19,8 +27,13 @@ export function ExperienceTimeline() {
           <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">Where I&apos;ve shipped.</h2>
         </motion.div>
 
-        <div className="relative">
+        <div ref={timelineRef} className="relative">
           <div className="absolute left-6 top-2 bottom-2 w-px bg-border" />
+          <motion.div
+            aria-hidden
+            style={{ scaleY: lineProgress }}
+            className="absolute left-6 top-2 bottom-2 w-px origin-top bg-primary"
+          />
 
           <div className="flex flex-col gap-10">
             {experience.map((entry, i) => (

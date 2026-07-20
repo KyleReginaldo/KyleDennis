@@ -52,17 +52,34 @@ export const stack: TechCategory[] = [
     ],
   },
   {
-    name: "Data & Backend Services",
+    name: "Database & Backend Services",
     items: [
       { name: "Supabase", years: "4 years", description: "Open source Firebase alternative with Postgres database, authentication, and real-time subscriptions", icon: img("supabase") },
       { name: "Firebase", years: "4 years", description: "Google's platform for mobile and web app development with real-time database and hosting", icon: img("firebase") },
       { name: "Neon", years: "2 years", description: "Serverless Postgres with branching, autoscaling, and instant provisioning for modern apps", icon: img("neon") },
+      { name: "PostgreSQL", years: "4 years", description: "Open-source relational database system with advanced features", icon: img("postgresql") },
+      { name: "MySQL", years: "4 years", description: "Popular open-source relational database management system", icon: img("mysql") },
+      { name: "MongoDB", years: "4 years", description: "NoSQL document database for building scalable applications", icon: img("mongodb") },
+   
     ],
   },
   {
     name: "Cloud & DevOps",
     items: [
       { name: "AWS", years: "1 year 2 months", description: "Amazon Web Services cloud computing platform for scalable infrastructure and services", icon: img("aws") },
+      { name: "DynamoDB", years: "1 year 2 months", description: "Fully managed NoSQL key-value and document database for high-performance applications at any scale", icon: img("aws-amazon-dynamodb") },
+      { name: "Lambda", years: "1 year 2 months", description: "Serverless compute service for running code in response to events without provisioning servers", icon: img("aws-aws-lambda") },
+      { name: "API Gateway", years: "1 year 2 months", description: "Fully managed service for creating, publishing, and securing REST and WebSocket APIs at scale", icon: img("aws-amazon-api-gateway") },
+      { name: "S3", years: "1 year 2 months", description: "Object storage service offering industry-leading scalability, durability, and availability", icon: img("aws-amazon-simple-storage-service") },
+      { name: "SQS", years: "1 year 2 months", description: "Fully managed message queuing service for decoupling and scaling microservices and distributed systems", icon: img("aws-amazon-simple-queue-service") },
+      { name: "SNS", years: "1 year 2 months", description: "Fully managed pub/sub messaging service for application-to-application and application-to-person communication", icon: img("aws-amazon-simple-notification-service") },
+      { name: "EventBridge", years: "1 year 2 months", description: "Serverless event bus service for building event-driven applications at scale", icon: img("aws-amazon-eventbridge") },
+      { name: "Cognito", years: "1 year 2 months", description: "Managed authentication, authorization, and user management for web and mobile applications", icon: img("aws-amazon-cognito") },
+      { name: "CloudFront", years: "1 year 2 months", description: "Global content delivery network for fast, secure delivery of data, videos, and APIs", icon: img("aws-amazon-cloudfront") },
+      { name: "RDS", years: "1 year 2 months", description: "Managed relational database service supporting Postgres, MySQL, and other popular engines", icon: img("aws-amazon-rds") },
+      { name: "Step Functions", years: "1 year 2 months", description: "Serverless orchestration service for coordinating multi-step workflows across AWS services", icon: img("aws-aws-step-functions") },
+      { name: "Secrets Manager", years: "1 year 2 months", description: "Managed service for securely storing, rotating, and retrieving credentials and API keys", icon: img("aws-aws-secrets-manager") },
+      { name: "CloudWatch", years: "1 year 2 months", description: "Monitoring and observability service for logs, metrics, and alarms across AWS resources", icon: img("aws-amazon-cloudwatch") },
       { name: "Docker", years: "4 years", description: "Containerization platform for building, shipping, and running applications", icon: img("docker") },
       { name: "Cloud Run", years: "4 years", description: "Fully managed serverless platform for deploying containerized applications", icon: img("gcp-cloud-run") },
       { name: "GitHub", years: "4 years", description: "Version control and collaboration platform for software development teams", icon: img("github") },
@@ -75,6 +92,8 @@ export const stack: TechCategory[] = [
       { name: "Stripe", years: "4 years", description: "Payment processing platform for online businesses and e-commerce applications", icon: img("stripe") },
       { name: "Twilio", years: "4 years", description: "Communications platform for SMS, voice, and video messaging integration", icon: img("twilio") },
       { name: "SendGrid", years: "4 years", description: "Cloud-based email delivery service for transactional and marketing emails", icon: img("azure-sendgrid-accounts") },
+      { name: "Resend", years: "4 years", description: "Email delivery service for developers", icon: img("resend") },
+
     ],
   },
   {

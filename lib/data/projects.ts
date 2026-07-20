@@ -9,6 +9,9 @@ export type ProjectLinks = {
 
 export type ScreenshotSlide = { src: string; eyebrow: string; headline: string }
 
+export type TimelineStep = { phase: string; description: string }
+export type Metric = { label: string; value: string }
+
 export type Project = {
   id: string
   title: string
@@ -31,6 +34,15 @@ export type Project = {
   challenges: string[]
   results: string[]
   links: ProjectLinks
+  /** Quick facts shown at the top of the case study, e.g. "Solo Developer", "3 months". */
+  role?: string
+  duration?: string
+  teamSize?: string
+  downloads?: string
+  /** Big stat callouts, e.g. { label: "Downloads", value: "500+" }. */
+  metrics?: Metric[]
+  /** Step-by-step of how the project unfolded, e.g. discovery -> build -> launch. */
+  timeline?: TimelineStep[]
 }
 
 export const projects: Project[] = [
@@ -42,6 +54,7 @@ export const projects: Project[] = [
       "A patient-first platform for booking at-home lab tests, with a Flutter app, a Next.js booking website, and a NestJS API tying it all together.",
     image: "/assets/mockup/mobilemedicallab2.png",
     logo: "/assets/logos/mobilemedicallab-logo.webp",
+    accent: "#1d4ed8",
     featured: true,
     video: "dnsmtvF6HzE",
     screenshots: {
@@ -75,6 +88,34 @@ export const projects: Project[] = [
         "/assets/mockup/mobilemedicallab10.webp",
       ],
     },
+    role: "Full Stack Developer",
+    duration: "4 months",
+    teamSize: "Solo developer",
+    downloads: "1,000+",
+    metrics: [
+      { label: "Platforms", value: "iOS, Android, Web" },
+      { label: "Downloads", value: "1,000+" },
+    ],
+    timeline: [
+      {
+        phase: "Discovery",
+        description:
+          "Mapped out the booking, scheduling, and technician dispatch flows needed across mobile and web.",
+      },
+      {
+        phase: "Design & Architecture",
+        description: "Designed a shared NestJS API to serve both the Flutter app and the Next.js booking site.",
+      },
+      {
+        phase: "Build",
+        description:
+          "Built the Flutter app, NestJS API, and Next.js website in parallel, keeping booking state in sync across all three.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped to the App Store, Google Play, and production web, with live Swagger docs for the API.",
+      },
+    ],
     categories: ["Flutter", "Full Stack", "Healthcare"],
     problem:
       "Patients needed a simple way to book at-home lab tests, and the clinic needed a reliable system to manage scheduling, results, and technician dispatch across both mobile and web.",
@@ -122,6 +163,30 @@ export const projects: Project[] = [
         "/assets/mockup/celebreak6.webp",
       ],
     },
+    role: "Mobile Developer",
+    duration: "3 months",
+    teamSize: "Solo developer",
+    downloads: "500+",
+    metrics: [{ label: "Downloads", value: "500+" }],
+    timeline: [
+      {
+        phase: "Discovery",
+        description:
+          "Talked to casual football players about how they organize matches today, mostly group chats and manual coordination.",
+      },
+      {
+        phase: "Design & Architecture",
+        description: "Designed a NestJS backend to handle matchmaking, pitch reservations, and player profiles.",
+      },
+      {
+        phase: "Build",
+        description: "Built the Flutter app and backend together, focusing on a fast, low-friction booking flow.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped to the App Store and Google Play.",
+      },
+    ],
     categories: ["Flutter", "Full Stack"],
     problem:
       "Casual football players needed an easy way to find matches and reserve pitches without relying on group chats and manual coordination.",
@@ -161,6 +226,29 @@ export const projects: Project[] = [
         "/assets/mockup/servebeez6.webp",
       ],
     },
+    role: "Mobile Developer",
+    duration: "3 months",
+    teamSize: "Solo developer",
+    downloads: "500+",
+    metrics: [{ label: "Downloads", value: "500+" }],
+    timeline: [
+      {
+        phase: "Discovery",
+        description: "Explored how homeowners and service providers currently coordinate bookings and dispatch.",
+      },
+      {
+        phase: "Design & Architecture",
+        description: "Chose Supabase for auth, data, and realtime updates, with AWS for supporting infrastructure.",
+      },
+      {
+        phase: "Build",
+        description: "Built the customer-facing Flutter app with realtime booking status updates.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped to the App Store and Google Play.",
+      },
+    ],
     categories: ["Flutter", "Full Stack"],
     problem:
       "Homeowners needed an easy way to book vetted service providers, and providers needed flexible scheduling and dispatch tooling.",
@@ -215,6 +303,29 @@ export const projects: Project[] = [
         },
       ],
     },
+    role: "Full Stack Developer",
+    duration: "3 months",
+    teamSize: "Solo developer",
+    downloads: "250+",
+    metrics: [{ label: "Downloads", value: "250+" }],
+    timeline: [
+      {
+        phase: "Discovery",
+        description: "Identified the need for one place to browse adoptable pets, run fundraisers, and coordinate events.",
+      },
+      {
+        phase: "Design & Architecture",
+        description: "Designed a shared Supabase backend to power both a Next.js web app and a Flutter mobile app.",
+      },
+      {
+        phase: "Build",
+        description: "Built both clients in parallel, keeping feature parity between web and mobile.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped the web app and made the mobile app available for download.",
+      },
+    ],
     categories: ["Flutter", "Full Stack"],
     problem:
       "Shelters and adopters needed one place to browse adoptable pets, run fundraisers, and coordinate community events.",
@@ -271,6 +382,27 @@ export const projects: Project[] = [
         },
       ],
     },
+    role: "Designer & Developer",
+    duration: "1 month",
+    teamSize: "Solo developer",
+    timeline: [
+      {
+        phase: "Discovery",
+        description: "Scoped what a local vape shop needed to sell online: listings, cart, and checkout.",
+      },
+      {
+        phase: "Design",
+        description: "Designed a storefront with an age-gated, compliant browsing experience for a regulated product category.",
+      },
+      {
+        phase: "Build",
+        description: "Built the catalog, cart, and checkout flow with Next.js.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped live at 13thvapourlounge.store.",
+      },
+    ],
     categories: ["Web", "E-Commerce", "UI/UX"],
     problem: "A local vape shop needed an online storefront to sell products beyond walk-in traffic.",
     responsibilities: [
@@ -314,6 +446,27 @@ export const projects: Project[] = [
         },
       ],
     },
+    role: "Designer & Developer",
+    duration: "3 weeks",
+    teamSize: "Solo developer",
+    timeline: [
+      {
+        phase: "Discovery",
+        description: "Looked at what a café needed for online ordering without adopting a heavyweight POS system.",
+      },
+      {
+        phase: "Design",
+        description: "Designed a lightweight menu browsing and ordering experience for walk-up café customers.",
+      },
+      {
+        phase: "Build",
+        description: "Built the ordering platform and menu UI with Next.js.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped live at brewpos.shop.",
+      },
+    ],
     categories: ["Web", "UI/UX"],
     problem: "A café wanted online ordering for coffee and snacks without adopting a heavyweight POS system.",
     responsibilities: ["Built the ordering platform and menu browsing UI"],
@@ -355,6 +508,27 @@ export const projects: Project[] = [
         },
       ],
     },
+    role: "Developer",
+    duration: "1 month",
+    teamSize: "Solo developer",
+    timeline: [
+      {
+        phase: "Discovery",
+        description: "Understood how Pasong Kawayan 2 residents currently request barangay documents in person.",
+      },
+      {
+        phase: "Design",
+        description: "Designed an accessible flow for a non-technical, local government audience.",
+      },
+      {
+        phase: "Build",
+        description: "Built the document request and tracking portal with Next.js.",
+      },
+      {
+        phase: "Launch",
+        description: "Shipped live, exclusive to Pasong Kawayan 2 residents.",
+      },
+    ],
     categories: ["Web", "Gov Tech"],
     problem: "Local residents needed a way to request barangay documents online instead of queuing in person.",
     responsibilities: ["Built the document request portal exclusive to Pasong Kawayan 2 residents"],
