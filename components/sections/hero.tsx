@@ -1,7 +1,8 @@
 "use client"
 
 import { FlipWord } from "@/components/ui/flip-word"
-import { ArrowRight } from "lucide-react"
+import { KineticText } from "@/components/ui/kinetic-text"
+import { ArrowRight, Download } from "lucide-react"
 import { motion } from "motion/react"
 import { Fragment } from "react"
 
@@ -33,7 +34,11 @@ export function Hero() {
           {HEADLINE.split(" ").map((w, i) => (
             <Fragment key={i}>
               <motion.span variants={word} className="inline-block">
-                {w === "love," ? <FlipWord words={FLIP_WORDS} className="text-primary" /> : w}
+                {w === "love," ? (
+                  <FlipWord words={FLIP_WORDS} className="text-primary" />
+                ) : (
+                  <KineticText as="span" text={w} className="inline-flex w-auto font-semibold" />
+                )}
               </motion.span>{" "}
             </Fragment>
           ))}
@@ -58,9 +63,10 @@ export function Hero() {
           <a
             href="/kylereginaldo.pdf"
             download
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-85"
+            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:scale-[1.03] hover:opacity-85 active:scale-[0.97]"
           >
             Download CV
+            <Download className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
           </a>
           <a
             href="/contact"

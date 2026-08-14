@@ -1,6 +1,5 @@
 "use client"
 
-import { AboutPhotoSwitcher } from "@/components/sections/about-photo-switcher";
 import {
   Boxes,
   Cloud,
@@ -11,7 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { PixelImage } from "../ui/pixel-image";
 
 const points: { icon: LucideIcon; title: string; description: string }[] = [
   {
@@ -48,8 +47,6 @@ const points: { icon: LucideIcon; title: string; description: string }[] = [
 
 
 export function About() {
-  const [photoRevealed, setPhotoRevealed] = useState(false)
-
   return (
     <section id="about" className="relative scroll-mt-14 py-28">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:items-start">
@@ -57,11 +54,12 @@ export function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          onViewportEnter={() => setPhotoRevealed(true)}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto w-full max-w-xs lg:sticky lg:top-24 lg:mx-0 lg:max-w-none"
+          className="relative mx-auto aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl lg:sticky lg:top-24 lg:mx-0 lg:max-w-none"
         >
-          <AboutPhotoSwitcher borderRevealed={photoRevealed} />
+          <PixelImage
+            src="/kyle/images/creative-improved.png"
+          />
         </motion.div>
 
         <motion.div
@@ -84,7 +82,7 @@ export function About() {
           <p className="mt-4 max-w-xl text-xl leading-relaxed text-muted-foreground">
             That first project became the foundation. Within a year or two I found full-time work,
             and it&apos;s been non-stop since, picking up web development, backend systems, and cloud
-            along the way, growing from a self-taught Flutter developer into a product engineer who
+            along the way, growing from a self-taught Flutter developer into a software engineer who
             ships the whole thing.
           </p>
 

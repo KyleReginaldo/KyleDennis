@@ -5,6 +5,7 @@ export type ExperienceEntry = {
   period: string
   current?: boolean
   logo?: string
+  accent?: string
   responsibilities: string[]
   tech: string[]
 }
@@ -17,6 +18,7 @@ export const experience: ExperienceEntry[] = [
     period: "May 2024 - Present",
     current: true,
     logo: "/assets/logos/mobilemedicallab-logo.webp",
+    accent: "var(--chart-1)",
     responsibilities: [
       "Developed Flutter mobile apps for iOS and Android for on-demand medical lab bookings",
       "Built responsive booking web apps with Next.js across desktop and mobile",
@@ -32,6 +34,7 @@ export const experience: ExperienceEntry[] = [
     location: "Cavite, PH",
     period: "Feb 2026 - May 2026",
     logo: "/assets/logos/servebeez-logo.webp",
+    accent: "var(--chart-3)",
     responsibilities: [
       "Developed responsive web applications using modern JavaScript frameworks",
       "Improved website SEO through technical and on-page optimization",
@@ -46,6 +49,7 @@ export const experience: ExperienceEntry[] = [
     location: "Barcelona, Spain",
     period: "Nov 2024 - Feb 2025",
     logo: "/assets/logos/celebreak-logo.webp",
+    accent: "var(--chart-2)",
     responsibilities: [
       "Contributed to TownSquare, a Flutter app focused on community engagement",
       "Built and maintained reusable UI components with responsive design principles",
@@ -58,6 +62,7 @@ export const experience: ExperienceEntry[] = [
     role: "Flutter Developer",
     location: "Nueva Ecija, PH",
     period: "Jun 2022 - Mar 2024",
+    accent: "var(--chart-4)",
     responsibilities: [
       "Developed blockchain-enabled Flutter apps integrating decentralized tech and REST APIs",
       "Implemented efficient state management for real-time blockchain transactions",

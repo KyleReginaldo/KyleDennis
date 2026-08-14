@@ -2,8 +2,7 @@
 
 import { sendEmail, type SendEmailState } from "@/app/actions/send-email"
 import { Reveal } from "@/components/ui/reveal"
-import { TestimonialsSection } from "@/components/ui/testimonials-section"
-import { ArrowLeft, CheckCircle, Loader2, MapPin, Send } from "lucide-react"
+import { ArrowLeft, CheckCircle, Loader2, Send } from "lucide-react"
 import Link from "next/link"
 import { useActionState } from "react"
 
@@ -59,8 +58,7 @@ export default function ContactPage() {
   const [state, action, pending] = useActionState(sendEmail, initialState)
 
   return (
-    <>
-      <main className="mx-auto flex w-full max-w-4xl flex-col gap-14 px-6 py-24">
+    <main className="mx-auto flex w-full max-w-4xl flex-col gap-14 px-6 py-24">
       <Link
         href="/"
         className="flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -186,36 +184,25 @@ export default function ContactPage() {
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
           Also reachable on
         </p>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <div className="divide-y divide-border border-t border-border">
           {socials.map((s) => (
             <a
               key={s.label}
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3.5 rounded-2xl border border-border bg-card px-4 py-3.5 transition-colors hover:border-foreground/20"
+              className="group flex items-center gap-3.5 py-4"
             >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/60">
-                {s.icon}
-              </div>
-              <div className="min-w-0">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center">{s.icon}</div>
+              <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium">{s.label}</p>
                 <p className="truncate text-xs text-muted-foreground">{s.handle}</p>
               </div>
-              <ArrowLeft className="ml-auto h-3.5 w-3.5 rotate-180 text-muted-foreground/40 transition-transform group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
+              <ArrowLeft className="h-3.5 w-3.5 rotate-180 text-muted-foreground/40 transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
             </a>
           ))}
         </div>
       </Reveal>
-
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border pt-6 text-xs text-muted-foreground/60">
-        <span className="flex items-center gap-1.5">
-          <MapPin className="h-3.5 w-3.5" />
-          Cavite, Philippines
-        </span>
-      </div>
-      </main>
-      <TestimonialsSection />
-    </>
+    </main>
   )
 }

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
-export const alt = "Kyle Reginaldo, Product Engineer"
+export const alt = "Kyle Reginaldo, Software Engineer"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -46,7 +46,7 @@ export default async function OpengraphImage() {
           Kyle Reginaldo
         </div>
         <div style={{ display: "flex", fontSize: 40, fontWeight: 500, color: "#F8FF3B", marginTop: 8 }}>
-          Product Engineer
+          Software Engineer
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#888888", marginTop: 28, maxWidth: 900 }}>
           Mobile apps, web platforms, and the backend systems behind them.

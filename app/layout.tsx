@@ -3,10 +3,12 @@ import { SiteNav } from "@/components/navigation/site-nav"
 import { Footer } from "@/components/sections/footer"
 import { CursorGlow } from "@/components/ui/cursor-glow"
 import { KDLoader } from "@/components/ui/kd-loader"
+import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata, Viewport } from "next"
 import { Bricolage_Grotesque } from "next/font/google"
 import localFont from "next/font/local"
+import NextTopLoader from "nextjs-toploader"
 import type React from "react"
 import { Suspense } from "react"
 import "./globals.css"
@@ -26,9 +28,9 @@ const bricolageGrotesque = Bricolage_Grotesque({
 })
 
 const SITE_URL = "https://kyle-reginaldo.vercel.app"
-const SITE_NAME = "Kyle Reginaldo, Product Engineer"
+const SITE_NAME = "Kyle Reginaldo, Software Engineer"
 const SITE_DESCRIPTION =
-  "Product engineer who builds complete digital products for real users: mobile apps, web platforms, and the backend systems behind them, from architecture to App Store and Play Store deployment."
+  "Software engineer who builds complete digital products for real users: mobile apps, web platforms, and the backend systems behind them, from architecture to App Store and Play Store deployment."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     "Kyle Reginaldo",
-    "Product Engineer",
+    "Software Engineer",
     "Full Stack Developer",
     "Flutter Developer",
     "Next.js Developer",
@@ -78,7 +80,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Kyle Reginaldo, Product Engineer",
+        alt: "Kyle Reginaldo, Software Engineer",
       },
     ],
   },
@@ -107,7 +109,7 @@ const personJsonLd = {
   alternateName: "Kyle Dennis Reginaldo",
   url: SITE_URL,
   image: `${SITE_URL}/assets/kyleai.png`,
-  jobTitle: "Product Engineer",
+  jobTitle: "Software Engineer",
   description: SITE_DESCRIPTION,
   address: {
     "@type": "PostalAddress",
@@ -147,8 +149,10 @@ export default function RootLayout({
       </head>
       <body className={`${fugazOne.variable} ${bricolageGrotesque.variable} font-sans antialiased`}>
         <MantineProvider>
+          <NextTopLoader color="#0071e3" height={2} showSpinner={false} />
           <KDLoader />
           <CursorGlow />
+          <SmoothCursor />
           <SiteNav />
           <div className="relative flex min-h-screen flex-col">
             <main className="flex-1 pb-24 md:pb-0">

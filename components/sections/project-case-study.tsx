@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
 import type { Project, ScreenshotSlide } from "@/lib/data/projects"
+import { stackFlat } from "@/lib/data/stack"
 import { cn } from "@/lib/utils"
 import {
   AlertTriangle,
@@ -25,6 +26,31 @@ import { useEffect, useRef, useState } from "react"
 const APP_STORE_ICON = "https://thesvg.org/icons/ios/default.svg"
 const PLAY_STORE_ICON = "https://thesvg.org/icons/android/default.svg"
 
+const TECH_ICON_BY_NAME = new Map(stackFlat.map((item) => [item.name.toLowerCase(), item.icon]))
+
+export function TechBadge({ name }: { name: string }) {
+  const icon = TECH_ICON_BY_NAME.get(name.toLowerCase())
+  if (!icon) {
+    return (
+      <Badge variant="secondary" className="text-[10px]">
+        {name}
+      </Badge>
+    )
+  }
+
+  return (
+    <Badge variant="secondary" title={name} className="p-1">
+      {icon.type === "image" ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={icon.src} alt={name} className="h-3.5 w-3.5 object-contain" />
+      ) : (
+        <icon.Icon className="h-3.5 w-3.5" />
+      )}
+      <span className="sr-only">{name}</span>
+    </Badge>
+  )
+}
+
 function ProjectIcon({ project, className }: { project: Project; className?: string }) {
   return (
     <div
@@ -44,19 +70,21 @@ function ProjectIcon({ project, className }: { project: Project; className?: str
 }
 
 function ShippedSurfaces({ links, minItems = 1 }: { links: Project["links"]; minItems?: number }) {
-  const items: { icon: React.ReactNode; label: string }[] = []
+  const items: { icon: React.ReactNode; label: string; iconOnly?: boolean }[] = []
   if (links.live) items.push({ icon: <Globe className="h-3.5 w-3.5" />, label: "Web" })
   if (links.appStore)
     items.push({
       // eslint-disable-next-line @next/next/no-img-element
       icon: <img src={APP_STORE_ICON} alt="" className="h-3.5 w-3.5" />,
       label: "iOS",
+      iconOnly: true,
     })
   if (links.playStore)
     items.push({
       // eslint-disable-next-line @next/next/no-img-element
       icon: <img src={PLAY_STORE_ICON} alt="" className="h-3.5 w-3.5" />,
       label: "Android",
+      iconOnly: true,
     })
   if (links.api) items.push({ icon: <Blocks className="h-3.5 w-3.5" />, label: "API" })
 
@@ -64,9 +92,10 @@ function ShippedSurfaces({ links, minItems = 1 }: { links: Project["links"]; min
 
   return (
     <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-muted-foreground">
-      {items.map(({ icon, label }) => (
-        <span key={label} className="inline-flex items-center gap-1">
-          {icon} {label}
+      {items.map(({ icon, label, iconOnly }) => (
+        <span key={label} className="inline-flex items-center gap-1" title={iconOnly ? label : undefined}>
+          {icon}
+          {!iconOnly && label}
         </span>
       ))}
     </div>
@@ -379,17 +408,17 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         animate={reduceMotion ? false : "visible"}
         className="flex min-w-0 flex-col gap-5 px-6 pb-6 pt-5"
       >
-        <motion.div variants={reduceMotion ? undefined : chapterVariants}>
-          <ShippedSurfaces links={project.links} />
-        </motion.div>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <motion.div variants={reduceMotion ? undefined : chapterVariants}>
+            <ShippedSurfaces links={project.links} />
+          </motion.div>
 
-        <motion.div variants={reduceMotion ? undefined : chapterVariants} className="flex flex-wrap gap-1.5">
-          {project.techStack.map((t) => (
-            <Badge key={t} variant="secondary" className="text-[10px]">
-              {t}
-            </Badge>
-          ))}
-        </motion.div>
+          <motion.div variants={reduceMotion ? undefined : chapterVariants} className="flex flex-wrap gap-1.5">
+            {project.techStack.map((t) => (
+              <TechBadge key={t} name={t} />
+            ))}
+          </motion.div>
+        </div>
 
         {(project.screenshots?.web?.length || project.screenshots?.app?.length) && (
           <motion.div variants={reduceMotion ? undefined : chapterVariants} className="flex flex-col gap-5">

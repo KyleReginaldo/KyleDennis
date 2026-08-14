@@ -20,7 +20,7 @@ const NAV_LINKS = [
   { label: "About", href: "/", Selected: HomeIconSelected, Unselected: HomeIconUnselected },
   { label: "Projects", href: "/projects", Selected: ProjectsIconSelected, Unselected: ProjectsIconUnselected },
   { label: "Experience", href: "/experience", Selected: ExperienceIconSelected, Unselected: ExperienceIconUnselected },
-  { label: "Services", href: "/services", Selected: ServicesIconSelected, Unselected: ServicesIconUnselected },
+  { label: "Tech Stacks", href: "/services", Selected: ServicesIconSelected, Unselected: ServicesIconUnselected },
   { label: "Contact", href: "/contact", Selected: ContactIconSelected, Unselected: ContactIconUnselected },
 ]
 

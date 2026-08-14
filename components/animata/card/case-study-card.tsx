@@ -12,7 +12,7 @@ interface CaseStudyCardProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: "content" | "simple-image"; // Decides between text or image
 }
 
-function shade(hex: string, amount: number): string {
+export function shade(hex: string, amount: number): string {
   const clean = hex.replace("#", "");
   const num = parseInt(clean, 16);
   const r = Math.max(0, Math.min(255, (num >> 16) + amount));

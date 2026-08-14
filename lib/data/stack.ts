@@ -84,6 +84,7 @@ export const stack: TechCategory[] = [
       { name: "Cloud Run", years: "4 years", description: "Fully managed serverless platform for deploying containerized applications", icon: img("gcp-cloud-run") },
       { name: "GitHub", years: "4 years", description: "Version control and collaboration platform for software development teams", icon: img("github") },
       { name: "Vite", years: "4 years", description: "Fast frontend build tool with instant server start and lightning-fast HMR", icon: img("vite") },
+      { name: "Codemagic", years: "2 years", description: "CI/CD platform for automating builds, testing, and App Store and Play Store releases", icon: img("codemagic") },
     ],
   },
   {
@@ -103,6 +104,8 @@ export const stack: TechCategory[] = [
       { name: "VS Code", years: "4 years", description: "Lightweight but powerful source code editor with extensive extension support", icon: img("visual-studio-code") },
       { name: "Postman", years: "4 years", description: "API development and testing tool for building and debugging REST APIs", icon: img("postman") },
       {name: 'Claude Code', years: '1 year', description: 'AI-powered code assistant for generating and understanding code snippets', icon: img('claude-code')},
+      { name: "Swagger", years: "3 years", description: "API documentation tool for designing, building, and documenting REST APIs", icon: img("swagger") },
+      { name: "Google Analytics", years: "2 years", description: "Web analytics platform for tracking traffic, conversions, and user behavior", icon: img("google-analytics") },
     ],
   },
 ]
