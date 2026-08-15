@@ -1,12 +1,11 @@
-import { BottomNav } from "@/components/navigation/bottom-nav"
-import { SiteNav } from "@/components/navigation/site-nav"
+import { OrbitalNav } from "@/components/navigation/orbital-nav"
 import { Footer } from "@/components/sections/footer"
 import { CursorGlow } from "@/components/ui/cursor-glow"
 import { KDLoader } from "@/components/ui/kd-loader"
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import { MantineProvider } from "@mantine/core"
 import type { Metadata, Viewport } from "next"
-import { Bricolage_Grotesque } from "next/font/google"
+import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google"
 import localFont from "next/font/local"
 import NextTopLoader from "nextjs-toploader"
 import type React from "react"
@@ -24,6 +23,12 @@ const fugazOne = localFont({
 const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-bricolage-grotesque",
+  display: "swap",
+})
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 })
 
@@ -147,20 +152,21 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className={`${fugazOne.variable} ${bricolageGrotesque.variable} font-sans antialiased`}>
+      <body
+        className={`${fugazOne.variable} ${bricolageGrotesque.variable} ${jetBrainsMono.variable} font-sans antialiased`}
+      >
         <MantineProvider>
           <NextTopLoader color="#0071e3" height={2} showSpinner={false} />
           <KDLoader />
           <CursorGlow />
           <SmoothCursor />
-          <SiteNav />
+          <OrbitalNav />
           <div className="relative flex min-h-screen flex-col">
-            <main className="flex-1 pb-24 md:pb-0">
+            <main className="flex-1">
               <Suspense>{children}</Suspense>
             </main>
             <Footer />
           </div>
-          <BottomNav />
           {modal}
         </MantineProvider>
       </body>

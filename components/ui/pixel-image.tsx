@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -40,6 +40,7 @@ export const PixelImage = ({
 }: PixelImageProps) => {
   const [isVisible, setIsVisible] = useState(false)
   const [showColor, setShowColor] = useState(false)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const MIN_GRID = 1
@@ -107,8 +108,23 @@ export const PixelImage = ({
     })
   }, [rows, cols, maxAnimationDelay])
 
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const col = Math.min(cols - 1, Math.max(0, Math.floor(((e.clientX - rect.left) / rect.width) * cols)))
+    const row = Math.min(rows - 1, Math.max(0, Math.floor(((e.clientY - rect.top) / rect.height) * rows)))
+    const index = row * cols + col
+    setHoveredIndex((prev) => (prev === index ? prev : index))
+  }
+
   return (
-    <div ref={containerRef} className="relative h-72 w-72 select-none md:h-96 md:w-96">
+    <div
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setHoveredIndex(null)}
+      className="relative h-72 w-72 select-none md:h-96 md:w-96"
+    >
       {pieces.map((piece, index) => (
         <div
           key={index}
@@ -126,13 +142,12 @@ export const PixelImage = ({
             src={src}
             alt={`Pixel image piece ${index + 1}`}
             className={cn(
-              "z-1 rounded-[2.5rem] object-cover",
-              grayscaleAnimation && (showColor ? "grayscale-0" : "grayscale")
+              "z-1 rounded-[2.5rem] object-cover transition-[filter] duration-300",
+              hoveredIndex === index ? "grayscale" : grayscaleAnimation && (showColor ? "grayscale-0" : "grayscale")
             )}
             style={{
-              transition: grayscaleAnimation
-                ? `filter ${pixelFadeInDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`
-                : "none",
+              transitionDuration: grayscaleAnimation && hoveredIndex !== index ? `${pixelFadeInDuration}ms` : undefined,
+              transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             draggable={false}
           />

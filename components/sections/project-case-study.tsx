@@ -2,6 +2,8 @@
 
 import { Badge } from "@/components/ui/badge"
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
+import { Iphone } from "@/components/ui/iphone"
+import { Safari } from "@/components/ui/safari"
 import type { Project, ScreenshotSlide } from "@/lib/data/projects"
 import { stackFlat } from "@/lib/data/stack"
 import { cn } from "@/lib/utils"
@@ -252,11 +254,13 @@ function ScreenshotRow({
   label,
   title,
   slides,
+  siteUrl,
 }: {
   kind: "web" | "app"
   label: string
   title: string
   slides?: ScreenshotSlide[] | string[]
+  siteUrl?: string
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null)
 
@@ -311,13 +315,9 @@ function ScreenshotRow({
       >
         {kind === "app"
           ? (slides as string[]).map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={src}
-                src={src}
-                alt={`${title} app screenshot`}
-                className="h-[300px] w-auto shrink-0 snap-start rounded-[2rem] object-contain sm:h-[380px]"
-              />
+              <div key={src} className="w-[150px] shrink-0 snap-start sm:w-[190px]">
+                <Iphone src={src} className="h-auto w-full" />
+              </div>
             ))
           : (slides as ScreenshotSlide[]).map((slide) => (
               <div key={slide.src} className="flex w-[min(75vw,340px)] shrink-0 snap-start flex-col gap-3">
@@ -325,19 +325,7 @@ function ScreenshotRow({
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">{slide.eyebrow}</p>
                   <h5 className="mt-1 text-sm font-semibold leading-snug">{slide.headline}</h5>
                 </div>
-                <div className="overflow-hidden rounded-2xl border border-border">
-                  <div className="flex items-center gap-1.5 border-b border-border bg-card px-3 py-1.5">
-                    <span className="block h-1.5 w-1.5 rounded-full bg-[#ff5f57]" />
-                    <span className="block h-1.5 w-1.5 rounded-full bg-[#febc2e]" />
-                    <span className="block h-1.5 w-1.5 rounded-full bg-[#28c840]" />
-                  </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={slide.src}
-                    alt={slide.headline}
-                    className="h-[180px] w-full object-cover object-top sm:h-[200px]"
-                  />
-                </div>
+                <Safari imageSrc={slide.src} url={siteUrl} className="w-full" />
               </div>
             ))}
       </div>
@@ -397,6 +385,7 @@ export function ProjectBanner({ project }: { project: Project }) {
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
   const reduceMotion = useReducedMotion()
+  const siteUrl = project.links.live ? project.links.live.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") : undefined
 
   return (
     <>
@@ -423,7 +412,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         {(project.screenshots?.web?.length || project.screenshots?.app?.length) && (
           <motion.div variants={reduceMotion ? undefined : chapterVariants} className="flex flex-col gap-5">
             <h4 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">Screenshots</h4>
-            <ScreenshotRow kind="web" label="Web" title={project.title} slides={project.screenshots?.web} />
+            <ScreenshotRow kind="web" label="Web" title={project.title} slides={project.screenshots?.web} siteUrl={siteUrl} />
             <ScreenshotRow kind="app" label="App" title={project.title} slides={project.screenshots?.app} />
           </motion.div>
         )}

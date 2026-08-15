@@ -1,16 +1,10 @@
-import { Process } from "@/components/sections/process"
-import { TechStack } from "@/components/sections/tech-stack"
+import { ServicesTechOrbit } from "@/components/sections/services-tech-orbit"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Tech Stacks",
+  title: "Services",
 }
 
 export default function ServicesPage() {
-  return (
-    <>
-      <TechStack />
-      <Process />
-    </>
-  )
+  return <ServicesTechOrbit />
 }

@@ -89,7 +89,7 @@ export function Footer() {
   })
 
   return (
-    <footer className="relative border-t border-border bg-muted pt-14 pb-24 md:pb-10">
+    <footer className="relative border-t border-border bg-muted pt-14 pb-10">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
