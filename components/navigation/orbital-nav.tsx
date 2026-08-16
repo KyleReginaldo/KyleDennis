@@ -1,5 +1,6 @@
 "use client"
 
+import { SpaceSoundToggle } from "@/components/ui/space-sound-toggle"
 import { X } from "lucide-react"
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react"
 import Link from "next/link"
@@ -110,7 +111,9 @@ function DesktopNav({ pathname, reduced }: { pathname: string; reduced: boolean 
         ))}
       </nav>
 
-      {/* <StatusBadge /> */}
+      <div className="h-4 w-px bg-white/[0.08]" />
+
+      <SpaceSoundToggle className="flex h-7 w-7 items-center justify-center rounded-full text-white/50 transition-colors hover:text-white" />
     </motion.header>
   )
 }
@@ -138,15 +141,18 @@ function MobileNav({ pathname, reduced }: { pathname: string; reduced: boolean }
         <Link href="/" className="font-logo text-lg tracking-tight text-white" aria-label="Kyle Reginaldo, home">
           KD<span className="text-primary">.</span>
         </Link>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Open navigation"
-          aria-expanded={open}
-          className="grid h-8 w-8 place-items-center rounded-full border border-white/[0.08] text-white/70"
-        >
-          <OrbitDot reduced={reduced} />
-        </button>
+        <div className="flex items-center gap-2">
+          <SpaceSoundToggle className="flex h-8 w-8 items-center justify-center rounded-full text-white/60 transition-colors hover:text-white" />
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Open navigation"
+            aria-expanded={open}
+            className="grid h-8 w-8 place-items-center rounded-full border border-white/[0.08] text-white/70"
+          >
+            <OrbitDot reduced={reduced} />
+          </button>
+        </div>
       </header>
 
       <AnimatePresence>
@@ -159,7 +165,14 @@ function MobileNav({ pathname, reduced }: { pathname: string; reduced: boolean }
             className="fixed inset-0 z-[60] flex flex-col bg-[#050507]/97 backdrop-blur-2xl md:hidden"
           >
             <div className="flex items-center justify-between px-6 pt-6">
-              <span className="font-mono text-[10px] tracking-[0.15em] text-white/40">NAVIGATION</span>
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className="font-logo text-lg tracking-tight text-white"
+                aria-label="Kyle Reginaldo, home"
+              >
+                KD<span className="text-primary">.</span>
+              </Link>
               <button
                 type="button"
                 onClick={() => setOpen(false)}

@@ -1,73 +1,96 @@
 "use client"
 
-import { OrbitingCircles } from "@/components/ui/orbiting-circles"
 import { projects, type Project } from "@/lib/data/projects"
 import { stackFlat, type TechItem } from "@/lib/data/stack"
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react"
+import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react"
 import Link from "next/link"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-const GRID_BG =
-  "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)"
+type Category = "MOBILE" | "FRONTEND" | "BACKEND" | "INFRASTRUCTURE" | "TOOLS"
 
-type Category = "FRONTEND" | "MOBILE" | "BACKEND" | "INFRASTRUCTURE" | "INTEGRATIONS"
+type Tech = { name: string; category: Category; usage: string }
 
-type Tech = {
-  name: string
-  tier: "inner" | "middle" | "outer"
-  category: Category
-  tagline: string
-}
-
+// "Usage" is the portfolio narrative (how I actually use it), distinct from
+// the factual `description` in lib/data/stack.ts — kept local since it's
+// showcase copy, not shared tech metadata.
 const TECHS: Tech[] = [
-  { name: "Next.js", tier: "inner", category: "FRONTEND", tagline: "WEB APPLICATIONS" },
-  { name: "React", tier: "middle", category: "FRONTEND", tagline: "USER INTERFACES" },
-  { name: "TypeScript", tier: "middle", category: "FRONTEND", tagline: "TYPED FOUNDATIONS" },
-  { name: "Flutter", tier: "inner", category: "MOBILE", tagline: "CROSS-PLATFORM APPS" },
-  { name: "Dart", tier: "outer", category: "MOBILE", tagline: "CLIENT-OPTIMIZED LANG" },
-  { name: "Firebase", tier: "middle", category: "MOBILE", tagline: "MOBILE BACKENDS" },
-  { name: "NestJS", tier: "inner", category: "BACKEND", tagline: "BACKEND SYSTEMS" },
-  { name: "Supabase", tier: "middle", category: "BACKEND", tagline: "DATA & AUTH" },
-  { name: "PostgreSQL", tier: "middle", category: "BACKEND", tagline: "RELATIONAL DATA" },
-  { name: "AWS", tier: "inner", category: "INFRASTRUCTURE", tagline: "CLOUD INFRASTRUCTURE" },
-  { name: "Docker", tier: "middle", category: "INFRASTRUCTURE", tagline: "CONTAINERIZATION" },
-  { name: "GitHub", tier: "outer", category: "INFRASTRUCTURE", tagline: "VERSION CONTROL" },
-  { name: "Stripe", tier: "outer", category: "INTEGRATIONS", tagline: "PAYMENTS" },
+  {
+    name: "Flutter",
+    category: "MOBILE",
+    usage:
+      "Production mobile apps — scalable architecture, state management, API integrations, payments, push notifications, and CI/CD releases to the App Store and Play Store.",
+  },
+  {
+    name: "Dart",
+    category: "MOBILE",
+    usage: "The typed, null-safe language behind every Flutter build, compiled straight to native code on both platforms.",
+  },
+  {
+    name: "Next.js",
+    category: "FRONTEND",
+    usage: "Marketing sites, dashboards, and full-stack web apps — server rendering and API routes in one framework.",
+  },
+  {
+    name: "React",
+    category: "FRONTEND",
+    usage: "Component-driven interfaces underneath every Next.js build — state, hooks, and reusable UI.",
+  },
+  {
+    name: "TypeScript",
+    category: "FRONTEND",
+    usage: "The default across the stack — typed contracts between frontend, backend, and database that catch bugs before they ship.",
+  },
+  {
+    name: "NestJS",
+    category: "BACKEND",
+    usage: "REST APIs and backend services — modular architecture, auth guards, and background jobs running in production.",
+  },
+  {
+    name: "Supabase",
+    category: "BACKEND",
+    usage: "Postgres, auth, storage, and realtime subscriptions — a backend that ships fast without managing infrastructure.",
+  },
+  {
+    name: "Firebase",
+    category: "BACKEND",
+    usage: "Auth, push notifications, and realtime data for mobile apps that need a managed backend out of the box.",
+  },
+  {
+    name: "PostgreSQL",
+    category: "BACKEND",
+    usage: "The relational database underneath most projects — schemas, migrations, and queries built to scale.",
+  },
+  {
+    name: "AWS",
+    category: "INFRASTRUCTURE",
+    usage: "Cloud infrastructure for services that outgrow a managed backend — compute, storage, queues, and event-driven workflows.",
+  },
+  {
+    name: "Docker",
+    category: "INFRASTRUCTURE",
+    usage: "Consistent environments from local development through deployment — every backend ships as a container.",
+  },
+  {
+    name: "GitHub",
+    category: "INFRASTRUCTURE",
+    usage: "Version control and CI/CD — every project ships through pull requests and automated pipelines.",
+  },
+  {
+    name: "Figma",
+    category: "TOOLS",
+    usage: "Interface design and prototyping — where every product starts before a line of code is written.",
+  },
+  {
+    name: "Stripe",
+    category: "TOOLS",
+    usage: "Payments — checkout flows, subscriptions, and webhooks for apps that need to charge real customers.",
+  },
 ]
-
-// The scroll narrative advances through every tech in the orbit, in order.
-const FOCUS_SEQUENCE = TECHS.map((t) => t.name)
-
-const CATEGORY_LABEL: Record<Category, { index: string; layer: string }> = {
-  FRONTEND: { index: "01", layer: "THE INTERFACE LAYER" },
-  MOBILE: { index: "02", layer: "THE APPLICATION LAYER" },
-  BACKEND: { index: "03", layer: "THE SYSTEM LAYER" },
-  INFRASTRUCTURE: { index: "04", layer: "THE FOUNDATION LAYER" },
-  INTEGRATIONS: { index: "05", layer: "THE INTEGRATION LAYER" },
-}
-
-const RING = {
-  inner: { radius: 90, duration: 26, icon: 44 },
-  middle: { radius: 150, duration: 38, icon: 36 },
-  outer: { radius: 210, duration: 50, icon: 30 },
-}
 
 const iconByName = new Map(stackFlat.map((i) => [i.name, i] as const))
 const techByName = new Map(TECHS.map((t) => [t.name, t] as const))
-
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)")
-    setIsDesktop(mq.matches)
-    const onChange = () => setIsDesktop(mq.matches)
-    mq.addEventListener("change", onChange)
-    return () => mq.removeEventListener("change", onChange)
-  }, [])
-  return isDesktop
-}
 
 function TechIconView({ item }: { item?: TechItem }) {
   if (!item) return null
@@ -76,197 +99,192 @@ function TechIconView({ item }: { item?: TechItem }) {
   return <Icon className="h-full w-full" />
 }
 
-function TechNode({ name, active, onActivate }: { name: string; active: boolean; onActivate: (name: string | null) => void }) {
-  const item = iconByName.get(name)
+const gridVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.03 } },
+  exit: { transition: { staggerChildren: 0.02, staggerDirection: -1 } },
+}
 
-  // While active, this tech's real node lives in the centered clone (see Orbit) —
-  // sharing layoutId with it so motion animates the flight from ring to center.
-  if (active) return <span aria-hidden className="block h-full w-full" />
+const tileVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
+  exit: { opacity: 0, scale: 0.92, filter: "blur(6px)", transition: { duration: 0.25, ease: EASE } },
+}
+
+function GridTile({ tech, onSelect }: { tech: Tech; onSelect: (name: string) => void }) {
+  const item = iconByName.get(tech.name)
 
   return (
     <motion.button
-      layoutId={`tech-${name}`}
-      transition={{ type: "spring", stiffness: 300, damping: 28 }}
       type="button"
-      aria-label={name}
-      aria-pressed={active}
-      onClick={() => onActivate(name)}
-      onFocus={() => onActivate(name)}
-      onMouseEnter={() => onActivate(name)}
-      className="flex h-full w-full items-center justify-center rounded-full border border-black/10 bg-white p-2.5 opacity-60 shadow-sm transition-opacity duration-300 hover:opacity-100"
+      variants={tileVariants}
+      whileHover={{ y: -6 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => onSelect(tech.name)}
+      aria-label={tech.name}
+      className="group flex flex-col items-center gap-3 py-4"
     >
-      <TechIconView item={item} />
+      {/* This icon carries a layoutId shared with the hero icon in TechDetail —
+          Motion animates the position/size change directly, no manual tweening. */}
+      <motion.span
+        layoutId={`tech-icon-${tech.name}`}
+        whileHover={{ scale: 1.14 }}
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+        className="flex h-14 w-14 items-center justify-center md:h-16 md:w-16"
+      >
+        <TechIconView item={item} />
+      </motion.span>
+      <span className="font-mono text-[11px] tracking-wide text-foreground/50 transition-colors group-hover:text-foreground">
+        {tech.name}
+      </span>
     </motion.button>
   )
 }
 
-function Orbit({
-  activeName,
-  onActivate,
-  reduced,
-  isDesktop,
-}: {
-  activeName: string | null
-  onActivate: (name: string | null) => void
-  reduced: boolean
-  isDesktop: boolean
-}) {
-  const scale = isDesktop ? 1 : 0.6
-
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="relative h-[480px] w-[480px] max-w-[88vw] shrink-0 md:h-[560px] md:w-[560px]">
-      {(["outer", "middle", "inner"] as const).map((tier) => (
-        <OrbitingCircles
-          key={tier}
-          radius={RING[tier].radius * scale}
-          duration={RING[tier].duration}
-          iconSize={RING[tier].icon * scale}
-          reverse={tier === "middle"}
-          paused={reduced}
-          className="border-none bg-transparent"
-        >
-          {TECHS.filter((t) => t.tier === tier).map((t) => (
-            <TechNode key={t.name} name={t.name} active={activeName === t.name} onActivate={onActivate} />
-          ))}
-        </OrbitingCircles>
-      ))}
-
-      <div className="pointer-events-none absolute inset-0 grid place-items-center">
-        <AnimatePresence mode="popLayout">
-          {activeName ? (
-            <motion.button
-              key={activeName}
-              layoutId={`tech-${activeName}`}
-              transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              type="button"
-              onClick={() => onActivate(null)}
-              aria-label={`${activeName} — click to deselect`}
-              className="pointer-events-auto flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary bg-white p-3 shadow-lg shadow-black/10 md:h-20 md:w-20"
-            >
-              <TechIconView item={iconByName.get(activeName)} />
-            </motion.button>
-          ) : (
-            <motion.div
-              key="stack-hub"
-              layout
-              className="grid h-14 w-14 place-items-center rounded-full border border-black/10 bg-white md:h-16 md:w-16"
-            >
-              <span className="font-mono text-[9px] tracking-widest text-foreground/50">STACK</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  )
-}
-
-function ProjectRef({ project }: { project: Project }) {
-  return (
-    <Link href={`/projects/${project.id}`} className="group relative block text-sm">
-      <span className="text-foreground/70 underline decoration-black/20 underline-offset-4 transition-colors group-hover:text-foreground group-hover:decoration-black/50">
-        {project.title}
-      </span>
-
+    <Link href={`/projects/${project.id}`} className="group flex items-center gap-4">
       {project.image && (
-        <span className="pointer-events-none absolute bottom-full left-0 mb-2 w-40 origin-bottom-left scale-95 overflow-hidden rounded-xl border border-black/10 bg-white opacity-0 shadow-lg shadow-black/10 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
-          <img src={project.image} alt="" className="block h-24 w-full object-cover object-top" />
-        </span>
+        <div className="h-20 w-32 shrink-0 overflow-hidden shadow-md shadow-black/10">
+          <img
+            src={project.image}
+            alt=""
+            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
       )}
+      <div className="min-w-0">
+        <p className="truncate font-medium text-foreground transition-colors group-hover:text-primary">{project.title}</p>
+        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-foreground/50">{project.architecture}</p>
+      </div>
     </Link>
   )
 }
 
-function FocusPanel({ activeName }: { activeName: string | null }) {
-  const tech = activeName ? techByName.get(activeName) : undefined
-  const item = activeName ? iconByName.get(activeName) : undefined
-  const usedIn = activeName ? projects.filter((p) => p.techStack.includes(activeName)) : []
-
-  if (!tech) {
-    return (
-      <div className="max-w-sm text-center md:text-left">
-        <p className="font-mono text-[10px] tracking-[0.2em] text-foreground/40">TECH STACK</p>
-        <p className="mt-2 text-lg text-foreground/60">One connected ecosystem — scroll to explore.</p>
-      </div>
-    )
-  }
-
-  const label = CATEGORY_LABEL[tech.category]
+function TechDetail({ tech, onBack, reduced }: { tech: Tech; onBack: () => void; reduced: boolean }) {
+  const item = iconByName.get(tech.name)
+  const usedIn = projects.filter((p) => p.techStack.includes(tech.name))
+  const heroProject = usedIn[0]
+  const heroShot = heroProject?.screenshots?.app?.[0] ?? heroProject?.image
 
   return (
     <motion.div
-      key={tech.name}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
+      key="detail"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: EASE }}
-      className="max-w-sm text-center md:text-left"
+      className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16"
     >
-      <p className="font-mono text-[10px] tracking-[0.2em] text-primary">
-        {label.index} / {tech.category} — {label.layer}
-      </p>
-      <div className="mt-3 flex items-center justify-center gap-2.5 md:justify-start">
-        <span className="h-6 w-6 shrink-0">
-          <TechIconView item={item} />
-        </span>
-        <h3 className="text-3xl font-semibold tracking-tight text-foreground">{tech.name}</h3>
-      </div>
-      <p className="mt-1.5 font-mono text-[11px] tracking-[0.15em] text-foreground/40">{tech.tagline}</p>
-      {item?.description && <p className="mt-4 text-sm leading-relaxed text-foreground/60">{item.description}</p>}
+      <button
+        type="button"
+        onClick={onBack}
+        className="col-span-full flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] text-foreground/40 transition-colors hover:text-foreground"
+      >
+        ← ALL TECHNOLOGIES
+      </button>
 
-      {usedIn.length > 0 && (
-        <div className="mt-6 border-t border-black/10 pt-5">
-          <p className="font-mono text-[10px] tracking-[0.2em] text-foreground/30">USED IN</p>
-          <div className="mt-3 flex flex-col items-center gap-2 md:items-start">
-            {usedIn.slice(0, 3).map((p) => (
-              <ProjectRef key={p.id} project={p} />
-            ))}
+      <div className="relative flex h-56 items-center justify-center md:h-[420px]">
+        <span
+          aria-hidden
+          className="absolute h-56 w-56 rounded-full bg-primary/[0.07] blur-[80px] md:h-80 md:w-80"
+        />
+
+        {heroShot && (
+          <motion.img
+            initial={reduced ? undefined : { opacity: 0, scale: 0.9, x: 20 }}
+            animate={reduced ? undefined : { opacity: 1, scale: 1, x: 20 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+            src={heroShot}
+            alt=""
+            className="absolute right-2 top-2 h-32 w-auto -rotate-6 rounded-2xl object-cover shadow-2xl shadow-black/20 md:right-4 md:top-6 md:h-48"
+          />
+        )}
+
+        <motion.span
+          layoutId={`tech-icon-${tech.name}`}
+          transition={{ type: "spring", stiffness: 260, damping: 26 }}
+          className="relative flex h-24 w-24 items-center justify-center md:h-32 md:w-32"
+        >
+          <TechIconView item={item} />
+        </motion.span>
+      </div>
+
+      <motion.div
+        initial={reduced ? undefined : { opacity: 0, y: 16 }}
+        animate={reduced ? undefined : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.15, ease: EASE }}
+      >
+        <p className="font-mono text-[10px] tracking-[0.3em] text-primary">{tech.category}</p>
+        <h3 className="mt-2 text-5xl font-semibold tracking-tight text-foreground">{tech.name}</h3>
+        <p className="mt-5 max-w-md text-base leading-relaxed text-foreground/60">{tech.usage}</p>
+
+        {usedIn.length > 0 && (
+          <div className="mt-10">
+            <p className="font-mono text-[10px] tracking-[0.2em] text-foreground/30">
+              USED IN {usedIn.length} PROJECT{usedIn.length > 1 ? "S" : ""}
+            </p>
+            <div className="mt-5 flex flex-col gap-6">
+              {usedIn.slice(0, 3).map((p) => (
+                <ProjectCard key={p.id} project={p} />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </motion.div>
     </motion.div>
   )
 }
 
-function OrbitStage() {
-  const wrapperRef = useRef<HTMLDivElement>(null)
+function TechStackSection() {
+  const [selected, setSelected] = useState<string | null>(null)
   const reduced = useReducedMotion() ?? false
-  const isDesktop = useIsDesktop()
-  const [manualActive, setManualActive] = useState<string | null>(null)
-  const [scrollActiveIndex, setScrollActiveIndex] = useState(-1)
-
-  const { scrollYProgress } = useScroll({ target: wrapperRef, offset: ["start start", "end end"] })
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, -50])
-
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    setManualActive(null)
-    const slot = Math.floor(progress * (FOCUS_SEQUENCE.length + 1)) - 1
-    setScrollActiveIndex(Math.max(-1, Math.min(FOCUS_SEQUENCE.length - 1, slot)))
-  })
-
-  const activeName = manualActive ?? (scrollActiveIndex >= 0 ? FOCUS_SEQUENCE[scrollActiveIndex] : null)
+  const tech = selected ? techByName.get(selected) : undefined
 
   return (
-    <div ref={wrapperRef} className="relative" style={{ height: `${(FOCUS_SEQUENCE.length + 1) * 80}vh` }}>
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-10 overflow-hidden px-6 md:flex-row md:gap-16">
-        <motion.div
-          aria-hidden
-          style={reduced ? undefined : { y: bgY }}
-          className="absolute inset-0 -z-10 opacity-100 [mask-image:radial-gradient(ellipse_65%_65%_at_50%_45%,black,transparent)]"
-        >
-          <div className="absolute inset-0" style={{ backgroundImage: GRID_BG, backgroundSize: "64px 64px" }} />
-        </motion.div>
-
-        <Orbit activeName={activeName} onActivate={setManualActive} reduced={reduced} isDesktop={isDesktop} />
-        <div className="min-h-[200px] w-full max-w-sm">
-          <FocusPanel activeName={activeName} />
-        </div>
+    <section className="relative mx-auto max-w-5xl px-6 py-28">
+      <div className="hidden md:block text-center">
+        <p className="font-mono text-[10px] tracking-[0.3em] text-primary">TECH STACK</p>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+          Technologies I build with
+        </h2>
       </div>
-    </div>
+
+      <div className="relative mt-16">
+        <AnimatePresence mode="popLayout">
+          {tech ? (
+            <TechDetail key="detail" tech={tech} onBack={() => setSelected(null)} reduced={reduced} />
+          ) : (
+            <motion.div
+              key="grid"
+              variants={gridVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              className="grid grid-cols-3 gap-x-6 gap-y-6 sm:grid-cols-4 sm:gap-x-10"
+            >
+              {TECHS.map((t) => (
+                <GridTile key={t.name} tech={t} onSelect={setSelected} />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
   )
 }
 
 function ClosingCTA() {
+  const reduced = useReducedMotion() ?? false
+
   return (
-    <div className="flex flex-col items-center gap-6 px-6 py-28 text-center">
+    <motion.div
+      initial={reduced ? undefined : { opacity: 0, y: 40 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.6, ease: EASE }}
+      className="relative flex flex-col items-center gap-6 px-6 py-28 text-center"
+    >
       <p className="max-w-lg text-3xl font-semibold uppercase leading-tight tracking-tight text-foreground sm:text-4xl">
         The stack is only
         <br />
@@ -279,14 +297,14 @@ function ClosingCTA() {
       >
         Let&apos;s talk →
       </Link>
-    </div>
+    </motion.div>
   )
 }
 
 export function ServicesTechOrbit() {
   return (
     <div className="relative bg-white">
-      <OrbitStage />
+      <TechStackSection />
       <ClosingCTA />
     </div>
   )
