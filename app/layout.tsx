@@ -1,5 +1,4 @@
 import { OrbitalNav } from "@/components/navigation/orbital-nav"
-import { Footer } from "@/components/sections/footer"
 import { CursorGlow } from "@/components/ui/cursor-glow"
 import { KDLoader } from "@/components/ui/kd-loader"
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
@@ -165,7 +164,6 @@ export default function RootLayout({
             <main className="flex-1">
               <Suspense>{children}</Suspense>
             </main>
-            <Footer />
           </div>
           {modal}
         </MantineProvider>

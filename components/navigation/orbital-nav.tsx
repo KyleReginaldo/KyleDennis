@@ -1,7 +1,7 @@
 "use client"
 
 import { SpaceSoundToggle } from "@/components/ui/space-sound-toggle"
-import { X } from "lucide-react"
+import { Facebook, FileText, Github, Linkedin, Mail, X } from "lucide-react"
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -15,6 +15,15 @@ const NAV_LINKS = [
   { index: "03", label: "Experience", href: "/experience" },
   { index: "04", label: "Tech Stack", href: "/services" },
   { index: "05", label: "Contact", href: "/contact" },
+  { index: "06", label: "Piano", href: "/piano" },
+] as const
+
+const SOCIAL_LINKS = [
+  { label: "Resume", href: "/kylereginaldo.pdf", icon: FileText },
+  { label: "GitHub", href: "https://github.com/KyleReginaldo", icon: Github },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/kyle-dennis-reginaldo-a0852a2a2", icon: Linkedin },
+  { label: "Facebook", href: "https://www.facebook.com/kyle.dennis.26", icon: Facebook },
+  { label: "Email", href: "mailto:kyledennis099@gmail.com", icon: Mail },
 ] as const
 
 type NavLink = (typeof NAV_LINKS)[number]
@@ -87,6 +96,25 @@ function NavItem({ link, active, reduced }: { link: NavLink; active: boolean; re
   )
 }
 
+function SocialIcons({ size = "h-7 w-7" }: { size?: string }) {
+  return (
+    <>
+      {SOCIAL_LINKS.map((social) => (
+        <a
+          key={social.label}
+          href={social.href}
+          target={social.href.startsWith("http") ? "_blank" : undefined}
+          rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          aria-label={social.label}
+          className={`flex ${size} items-center justify-center rounded-full text-white/50 transition-colors hover:text-white`}
+        >
+          <social.icon className="h-4 w-4" />
+        </a>
+      ))}
+    </>
+  )
+}
+
 function DesktopNav({ pathname, reduced }: { pathname: string; reduced: boolean }) {
   const { scrollY } = useScroll()
   const [compact, setCompact] = useState(false)
@@ -114,6 +142,9 @@ function DesktopNav({ pathname, reduced }: { pathname: string; reduced: boolean 
       <div className="h-4 w-px bg-white/[0.08]" />
 
       <SpaceSoundToggle className="flex h-7 w-7 items-center justify-center rounded-full text-white/50 transition-colors hover:text-white" />
+
+
+      
     </motion.header>
   )
 }
