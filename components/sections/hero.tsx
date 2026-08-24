@@ -2,11 +2,11 @@
 
 import { FlipWord } from "@/components/ui/flip-word"
 import { KineticText } from "@/components/ui/kinetic-text"
-import { ArrowRight, Download } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Download } from "lucide-react"
 import { motion } from "motion/react"
 import { Fragment } from "react"
 
-const HEADLINE = "Building products that users love, from idea to production."
+const HEADLINE = "Building apps people love."
 const FLIP_WORDS = ["love,", "trust,", "need,", "enjoy,"]
 
 const container = {
@@ -23,8 +23,9 @@ const word = {
 
 export function Hero() {
   return (
-    <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-16">
+    <section id="home" className="relative flex min-h-[70vh] items-center overflow-hidden pt-24 pb-16">
       <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center gap-6 px-6 text-center">
+        
         <motion.h1
           variants={container}
           initial="hidden"
@@ -50,8 +51,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl text-xl leading-relaxed text-muted-foreground"
         >
-          I design and build complete digital products, mobile apps, web platforms, and the
-          backend systems behind them, with interfaces people genuinely enjoy using.
+          I believe in turning ideas into experiences that make a difference. I'm always curious, always learning, and always looking for new ways to build, create, and grow.
         </motion.p>
 
         <motion.div
@@ -61,20 +61,24 @@ export function Hero() {
           className="flex flex-wrap items-center justify-center gap-6 pt-2"
         >
           <a
-            href="/kylereginaldo.pdf"
-            download
+            href="/projects"
             className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:scale-[1.03] hover:opacity-85 active:scale-[0.97]"
           >
-            Download CV
-            <Download className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
+            View My Work
+            <span className="relative inline-block h-3.5 w-3.5">
+              <ArrowRight className="absolute inset-0 h-3.5 w-3.5 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-0" />
+              <ArrowUpRight className="absolute inset-0 h-3.5 w-3.5 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
+            </span>
           </a>
           <a
-            href="/contact"
+            href="/kylereginaldo.pdf"
+            download
             className="group inline-flex items-center gap-1 text-sm font-semibold text-primary"
           >
-            Contact me
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            Download CV
+            <Download className="h-3.5 w-3.5 transition-transform duration-500 ease-out group-hover:rotate-[360deg]" />
           </a>
+         
         </motion.div>
       </div>
     </section>

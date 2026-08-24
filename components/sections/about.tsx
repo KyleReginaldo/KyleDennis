@@ -20,18 +20,18 @@ const points: { icon: LucideIcon; title: string; description: string }[] = [
   },
   {
     icon: Boxes,
-    title: "Scalable architecture",
-    description: "Clean, feature-first architecture across mobile and web that scales with the team.",
+    title: "Mobile development",
+    description: "Flutter applications for iOS and Android, from architecture to App Store and Play Store release.",
   },
   {
     icon: Paintbrush,
-    title: "UI/UX implementation",
-    description: "Pixel-perfect UI from Figma, with animation and micro-interactions baked in.",
+    title: "UI development",
+    description: "Responsive, reusable Flutter UI components, animated and true to the design.",
   },
   {
     icon: Cloud,
-    title: "Backend integration",
-    description: "REST APIs, Firebase, Supabase, and NestJS backends wired into real, working products.",
+    title: "Full-stack integration",
+    description: "REST APIs, Firebase, Supabase, and NestJS backends wired into production Flutter and web apps.",
   },
   {
     icon: Users,
@@ -81,9 +81,9 @@ export function About() {
           </p>
           <p className="mt-4 max-w-xl text-xl leading-relaxed text-muted-foreground">
             That first project became the foundation. Within a year or two I found full-time work,
-            and it&apos;s been non-stop since, picking up web development, backend systems, and cloud
-            along the way, growing from a self-taught Flutter developer into a software engineer who
-            ships the whole thing.
+            and it&apos;s been non-stop since. Flutter and Dart are still where I spend most of my
+            time, four years in, with Next.js, NestJS, Firebase, and Supabase alongside it for the
+            web and backend work that ships with every app.
           </p>
 
           <div className="mt-10 border-t border-border">

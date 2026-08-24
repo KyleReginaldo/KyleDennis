@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
-export const alt = "Kyle Reginaldo, Software Engineer"
+export const alt = "Kyle Reginaldo, Full Stack Developer"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -46,13 +46,13 @@ export default async function OpengraphImage() {
           Kyle Reginaldo
         </div>
         <div style={{ display: "flex", fontSize: 40, fontWeight: 500, color: "#F8FF3B", marginTop: 8 }}>
-          Software Engineer
+          Full Stack Developer, 4 Years Experience
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#888888", marginTop: 28, maxWidth: 900 }}>
-          Mobile apps, web platforms, and the backend systems behind them.
+          Production mobile and web apps, from Flutter and APIs to app-store deployment.
         </div>
         <div style={{ display: "flex", gap: 14, marginTop: 44 }}>
-          {["Flutter", "Next.js", "NestJS", "TypeScript"].map((tag) => (
+          {["Flutter", "Next.js", "NestJS", "Firebase"].map((tag) => (
             <div
               key={tag}
               style={{

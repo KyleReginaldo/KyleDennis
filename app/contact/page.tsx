@@ -2,11 +2,17 @@
 
 import { sendEmail, type SendEmailState } from "@/app/actions/send-email"
 import { Reveal } from "@/components/ui/reveal"
-import { ArrowLeft, CheckCircle, Loader2, Send } from "lucide-react"
+import { ArrowLeft, CheckCircle, FileText, Loader2, Send } from "lucide-react"
 import Link from "next/link"
 import { useActionState } from "react"
 
 const socials = [
+  {
+    label: "Resume",
+    handle: "Download CV (PDF)",
+    href: "/kylereginaldo.pdf",
+    icon: <FileText className="h-4 w-4" />,
+  },
   {
     label: "GitHub",
     handle: "@KyleReginaldo",
@@ -73,13 +79,13 @@ export default function ContactPage() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
           </span>
-          <span className="text-xs font-medium text-emerald-500">Available for work</span>
+          <span className="text-xs font-medium text-emerald-500">Available for remote Full Stack Developer roles</span>
         </div>
         <div className="space-y-3">
           <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl">{"Let's build something."}</h1>
           <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
-            Open to freelance projects, full-time roles, and collaborations. If you have an idea or an
-            opportunity, I would love to hear about it.
+            Open to full-stack developer roles, mobile app projects, and collaborations. If you have
+            an idea or an opportunity, I would love to hear about it.
           </p>
         </div>
       </Reveal>

@@ -32,9 +32,9 @@ const jetBrainsMono = JetBrains_Mono({
 })
 
 const SITE_URL = "https://kyle-reginaldo.vercel.app"
-const SITE_NAME = "Kyle Reginaldo, Software Engineer"
+const SITE_NAME = "Kyle Reginaldo — Full Stack Developer"
 const SITE_DESCRIPTION =
-  "Software engineer who builds complete digital products for real users: mobile apps, web platforms, and the backend systems behind them, from architecture to App Store and Play Store deployment."
+  "Full Stack Developer with 4 years of experience building production-ready mobile and web applications using Flutter, Dart, Next.js, NestJS, Firebase, REST APIs, and modern full-stack technologies."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -45,15 +45,14 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     "Kyle Reginaldo",
-    "Software Engineer",
     "Full Stack Developer",
+    "Full Stack Developer Philippines",
+    "Mobile App Developer",
     "Flutter Developer",
+    "Dart Developer",
+    "React Developer",
     "Next.js Developer",
     "NestJS Developer",
-    "React Native Developer",
-    "Mobile App Developer Philippines",
-    "Web Developer Philippines",
-    "Software Engineer Portfolio",
   ],
   authors: [{ name: "Kyle Reginaldo", url: SITE_URL }],
   creator: "Kyle Reginaldo",
@@ -84,7 +83,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Kyle Reginaldo, Software Engineer",
+        alt: "Kyle Reginaldo, Full Stack Developer",
       },
     ],
   },
@@ -113,7 +112,7 @@ const personJsonLd = {
   alternateName: "Kyle Dennis Reginaldo",
   url: SITE_URL,
   image: `${SITE_URL}/assets/kyleai.png`,
-  jobTitle: "Software Engineer",
+  jobTitle: "Full Stack Developer",
   description: SITE_DESCRIPTION,
   address: {
     "@type": "PostalAddress",
@@ -127,11 +126,13 @@ const personJsonLd = {
   ],
   knowsAbout: [
     "Flutter",
+    "Dart",
     "Next.js",
     "NestJS",
-    "React Native",
     "TypeScript",
+    "Firebase",
     "Supabase",
+    "REST APIs",
   ],
 }
 
