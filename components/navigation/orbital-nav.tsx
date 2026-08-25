@@ -14,8 +14,9 @@ const NAV_LINKS = [
   { index: "02", label: "Projects", href: "/projects" },
   { index: "03", label: "Experience", href: "/experience" },
   { index: "04", label: "Tech Stack", href: "/services" },
-  { index: "05", label: "Contact", href: "/contact" },
-  { index: "06", label: "Piano", href: "/piano" },
+  { index: "05", label: "Blog", href: "/blog" },
+  { index: "06", label: "Contact", href: "/contact" },
+  { index: "07", label: "Piano", href: "/piano" },
 ] as const
 
 const SOCIAL_LINKS = [

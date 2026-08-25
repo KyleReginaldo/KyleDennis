@@ -1,9 +1,8 @@
 "use client"
 
-import CaseStudyCard from "@/components/animata/card/case-study-card"
+import { ProjectGridCard } from "@/components/sections/project-grid-card"
 import { projectCategories, projects } from "@/lib/data/projects"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
 
 // Each pill borrows its color from the projects it filters to, turning the
@@ -18,7 +17,6 @@ const CATEGORY_COUNT: Record<string, number> = Object.fromEntries(
 export function Projects() {
   const [filter, setFilter] = useState<string>("All")
   const reduceMotion = useReducedMotion()
-  const router = useRouter()
 
   const filtered = useMemo(
     () => (filter === "All" ? projects : projects.filter((p) => p.categories.includes(filter))),
@@ -83,35 +81,18 @@ export function Projects() {
           })}
         </div>
 
-        <motion.div
-          layout
-          className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
-        >
+        <motion.div layout className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
+            {filtered.map((project, i) => (
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="mx-auto w-full max-w-[200px]"
-                onClick={(e) => {
-                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
-                  e.preventDefault()
-                  router.push(`/projects/${project.id}`)
-                }}
+                transition={{ duration: 0.35, delay: reduceMotion ? 0 : i * 0.04, ease: [0.16, 1, 0.3, 1] }}
               >
-                <CaseStudyCard
-                  type="content"
-                  title={project.tagline}
-                  category={project.title}
-                  accent={project.accent}
-                  logo={project.logo}
-                  image={project.image ?? project.screenshots?.web?.[0]?.src ?? project.screenshots?.app?.[0]}
-                  link={`/projects/${project.id}`}
-                />
+                <ProjectGridCard project={project} index={i} />
               </motion.div>
             ))}
           </AnimatePresence>
