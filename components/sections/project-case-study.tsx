@@ -31,6 +31,7 @@ const PLAY_STORE_ICON = "https://thesvg.org/icons/android/default.svg"
 const TECH_ICON_BY_NAME = new Map(stackFlat.map((item) => [item.name.toLowerCase(), item.icon]))
 
 export function TechBadge({ name }: { name: string }) {
+  console.log(`Rendering TechBadge for: ${name}`);
   const icon = TECH_ICON_BY_NAME.get(name.toLowerCase())
   if (!icon) {
     return (
@@ -42,6 +43,7 @@ export function TechBadge({ name }: { name: string }) {
 
   return (
     <Badge variant="secondary" title={name} className="p-1">
+      
       {icon.type === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={icon.src} alt={name} className="h-3.5 w-3.5 object-contain" />
@@ -311,6 +313,7 @@ function ScreenshotRow({
       </div>
       <div
         ref={scrollerRef}
+        data-rail={kind}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 touch-pan-x"
       >
         {kind === "app"
@@ -335,10 +338,32 @@ function ScreenshotRow({
 
 export function ProjectBanner({ project }: { project: Project }) {
   const hasVideo = Boolean(project.video)
+  // Only `video` was ever checked, so the four projects without one rendered a
+  // 208px tall block of empty gradient. Fall back to the project's own hero
+  // image, and when there is neither, drop the fixed height so the banner
+  // collapses to its caption instead of reserving space for nothing.
+  const hasImage = !hasVideo && Boolean(project.image)
+  const hasMedia = hasVideo || hasImage
   const accent = project.accent ?? "#0071e3"
 
   return (
-    <div className={cn("relative h-52 w-full overflow-hidden sm:h-60", hasVideo ? "bg-neutral-900" : "bg-muted")}>
+    <div
+      className={cn(
+        "relative w-full overflow-hidden",
+        hasMedia && "h-52 sm:h-60",
+        hasVideo ? "bg-neutral-900" : "bg-muted",
+      )}
+    >
+      {hasImage && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={project.image} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
+      )}
+      {hasImage && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-t from-black/85 via-black/25 to-transparent"
+        />
+      )}
       {hasVideo ? (
         <>
           <HeroVideoDialog
@@ -355,7 +380,7 @@ export function ProjectBanner({ project }: { project: Project }) {
             className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-t from-black/85 via-black/20 to-transparent"
           />
         </>
-      ) : (
+      ) : hasImage ? null : (
         <div
           aria-hidden
           className="absolute inset-0"
@@ -367,16 +392,16 @@ export function ProjectBanner({ project }: { project: Project }) {
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5 sm:p-6">
         <div className="flex items-center gap-3">
-          <ProjectIcon project={project} className={cn("h-12 w-12", hasVideo && "border-white/20 bg-white/10")} />
+          <ProjectIcon project={project} className={cn("h-12 w-12", hasMedia && "border-white/20 bg-white/10")} />
           <div className="min-w-0">
-            <h2 className={cn("text-lg font-semibold sm:text-xl", hasVideo ? "text-white" : undefined)}>
+            <h2 className={cn("text-lg font-semibold sm:text-xl", hasMedia ? "text-white" : undefined)}>
               {project.title}
             </h2>
-            <p className={cn("text-sm", hasVideo ? "text-white/70" : "text-muted-foreground")}>{project.tagline}</p>
+            <p className={cn("text-sm", hasMedia ? "text-white/70" : "text-muted-foreground")}>{project.tagline}</p>
           </div>
         </div>
         <div className="pointer-events-auto">
-          <ProjectLinks project={project} compact light={hasVideo} />
+          <ProjectLinks project={project} compact light={hasMedia} />
         </div>
       </div>
     </div>
@@ -403,9 +428,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           </motion.div>
 
           <motion.div variants={reduceMotion ? undefined : chapterVariants} className="flex flex-wrap gap-1.5">
-            {project.techStack.map((t) => (
-              <TechBadge key={t} name={t} />
-            ))}
+            {project.techStack.map((t) => {
+              console.log(t);
+              return (
+                <TechBadge key={t} name={t} />
+              )
+            })}
           </motion.div>
         </div>
 

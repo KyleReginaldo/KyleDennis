@@ -356,6 +356,7 @@ export const projects: Project[] = [
     tagline: "An e-commerce storefront built for a local vape shop.",
     description:
       "A retail storefront with product listings, cart, and checkout, built to take a local shop's sales online.",
+    image: "/assets/mockup/vapourlounge2.png",
     logo: "/assets/logos/vapourlounge-logo.jpg",
     accent: "#111111",
     screenshots: {
@@ -420,6 +421,7 @@ export const projects: Project[] = [
     title: "Sweet Hives",
     tagline: "Online ordering for a café, without a heavyweight POS.",
     description: "A lightweight ordering platform so a café's customers can browse and order coffee and snacks online.",
+    image: "/assets/mockup/brewpos2.png",
     logo: "/assets/logos/brewpos-logo.jpg",
     accent: "#8b5e3c",
     screenshots: {
@@ -482,6 +484,7 @@ export const projects: Project[] = [
     tagline: "Barangay document requests, moved online.",
     description:
       "A document processing portal exclusive to Pasong Kawayan 2 residents, replacing in-person queues with online requests.",
+    image: "/assets/mockup/pasongkawayan2.png",
     logo: "/assets/logos/pasongkawayan-logo.png",
     accent: "#166534",
     screenshots: {
