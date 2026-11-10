@@ -15,7 +15,7 @@ export const experience: ExperienceEntry[] = [
     company: "LabsToGo",
     role: "Full Stack Developer",
     location: "Virginia, USA",
-    period: "May 2024 - Present",
+    period: "May 2024 - October 2026",
     current: true,
     logo: "/assets/logos/mobilemedicallab-logo.webp",
     accent: "var(--chart-1)",
