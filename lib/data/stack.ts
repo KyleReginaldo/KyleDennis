@@ -1,4 +1,4 @@
-import { Blocks, Infinity as InfinityIcon, Webhook, type LucideIcon } from "lucide-react";
+import { Blocks, CreditCard, Infinity as InfinityIcon, Webhook, type LucideIcon } from "lucide-react";
 
 export type TechIcon = { type: "image"; src: string } | { type: "lucide"; Icon: LucideIcon }
 
@@ -149,6 +149,8 @@ export const stack: TechCategory[] = [
       { name: "Twilio", years: "4 years", description: "Communications platform for SMS, voice, and video messaging integration", icon: img("twilio") },
       { name: "SendGrid", years: "4 years", description: "Cloud-based email delivery service for transactional and marketing emails", icon: img("azure-sendgrid-accounts") },
       { name: "Resend", years: "4 years", description: "Email delivery service for developers", icon: img("resend") },
+      { name: "Xendit", years: "1 year", description: "Southeast Asian payment gateway for cards, e-wallets, and bank transfers", icon: img("xendit") },
+      { name: "PayMongo", years: "1 year", description: "Philippine payment gateway for cards, GCash, Maya, and online banking", icon: lucide(CreditCard) },
 
     ],
   },

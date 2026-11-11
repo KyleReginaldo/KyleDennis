@@ -138,6 +138,16 @@ const TECHS: Tech[] = [
     usage: "Payments — checkout flows, subscriptions, and webhooks for apps that need to charge real customers.",
   },
   {
+    name: "Xendit",
+    category: "TOOLS",
+    usage: "Southeast Asian payments — cards, e-wallets, and bank transfers through one gateway, with webhooks for payment status.",
+  },
+  {
+    name: "PayMongo",
+    category: "TOOLS",
+    usage: "Philippine payments — cards, GCash, Maya, and online banking for apps charging local customers.",
+  },
+  {
     name: "Claude Code",
     category: "TOOLS",
     usage: "AI pair programming in the terminal — refactors, test scaffolding, and unfamiliar codebases explored fast.",

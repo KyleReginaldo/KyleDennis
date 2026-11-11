@@ -14,6 +14,7 @@ const MARQUEE_TECH = [
   "Firebase",
   "Supabase",
   "Stripe",
+  "Xendit",
   "Twilio",
   "Codemagic",
 ]
